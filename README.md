@@ -47,4 +47,5 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ---------------------------------------------------------------------------------
 The design
-![image](https://user-images.githubusercontent.com/43442285/171803445-a148d58c-d307-4d56-83c8-58ad46e9b516.png)
+![image](https://user-images.githubusercontent.com/43442285/171835086-1429ae7e-4fe1-4171-9c56-d4c107e724f3.png)
+
