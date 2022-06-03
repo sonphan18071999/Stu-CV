@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './App.scss';
 
-function App() {
+const App: FC = () => {
   return (
     <div className="App">
       <header className="App-header">
@@ -12,5 +12,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
