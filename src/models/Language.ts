@@ -1,4 +1,4 @@
-export default interface Languages{
-    name: string
-    level: number
+export default interface Language {
+  name: string;
+  level: number;
 }

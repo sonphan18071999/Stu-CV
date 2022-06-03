@@ -1,0 +1,29 @@
+$primary-purple: rgb(116, 138, 232);
+$secondary-pink: rgb(224, 37, 206);
+$opacity-white-background: rgb(255, 255, 255);
+$grey-background: rgb(84, 84, 84);
+
+.text--header {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.text--section {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.text--sub-section {
+    font-style: italic;
+    font-size: 14px;
+}
+
+.text--normal {
+    font-size: 12px;
+}
+
+.btn {
+    width: auto;
+    height: 2rem;
+    text-align: center;
+}
