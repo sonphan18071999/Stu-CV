@@ -1,0 +1,15 @@
+@import "../styles.scss";
+
+.header {
+  background-image: linear-gradient(90deg, $primary-purple, $secondary-pink);
+  color: white;
+
+  &__items {
+    width: 100%;
+    display: flex;
+
+    &-content {
+      padding-right: 2rem;
+    }
+  }
+}

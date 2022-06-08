@@ -3,27 +3,22 @@ $secondary-pink: rgb(224, 37, 206);
 $opacity-white-background: rgb(255, 255, 255);
 $grey-background: rgb(84, 84, 84);
 
-.text--header {
+.text {
+  &__header {
     font-weight: bold;
-    font-size: 18px;
-}
+    font-size: 1.125em;
+  }
 
-.text--section {
+  &__section {
     font-weight: bold;
-    font-size: 16px;
-}
+    font-size: 1em;
+    &-sub {
+      font-style: italic;
+      font-size: 0.875em;
+    }
+  }
 
-.text--sub-section {
-    font-style: italic;
-    font-size: 14px;
-}
-
-.text--normal {
-    font-size: 12px;
-}
-
-.btn {
-    width: auto;
-    height: 2rem;
-    text-align: center;
+  &__normal {
+    font-size: 0.75em;
+  }
 }
