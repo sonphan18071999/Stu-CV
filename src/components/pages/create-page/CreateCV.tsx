@@ -1,6 +1,6 @@
 import React from "react";
 import AppHeader from "../../commons/header/header";
-import FieldsDrawer from "./fields-drawer/FieldsSideBar";
+import FieldSideBar from "./fields-drawer/FieldSideBar";
 
 const CreateCV: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ const CreateCV: React.FC = () => {
       <div>
         <AppHeader />
         <div>
-          <FieldsDrawer />
+          <FieldSideBar />
         </div>
       </div>
     </>
