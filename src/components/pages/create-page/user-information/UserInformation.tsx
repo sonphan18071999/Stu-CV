@@ -1,11 +1,22 @@
 import { Col, Collapse, Row } from "antd";
 import Input from "antd/lib/input/Input";
 import React from "react";
+import {
+  increaseCounter,
+  decreaseCounter,
+} from "../../../../redux/Counter/counter.actions";
+import { connect } from "react-redux";
+
 const { Panel } = Collapse;
 
-const UserInformation: React.FC = () => {
+const UserInformation: React.FC = (props: any) => {
   return (
     <Collapse expandIconPosition={`right`} className="w-full rounded">
+      <div>Count: {props.count}</div>
+
+      <button onClick={() => props.increaseCounter()}>Increase Count</button>
+      <button onClick={() => props.decreaseCounter()}>Decrease Count</button>
+
       <Panel className="font-bold" header="User Information" key="1">
         <Row>
           <Col span={12}>
@@ -59,4 +70,18 @@ const UserInformation: React.FC = () => {
   );
 };
 
-export default UserInformation;
+const mapStateToProps = (state: any) => {
+  return {
+    count: state.counter.count,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    increaseCounter: () => dispatch(increaseCounter()),
+
+    decreaseCounter: () => dispatch(decreaseCounter()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserInformation);
