@@ -1,10 +1,9 @@
+import { Additional } from "./Additional";
 import Education from "./Education";
 import Experience from "./Experience";
 import Language from "./Language";
-import UserInformation from "./UserInformation";
 
 export interface CV {
-  information: UserInformation;
   industryKnowledge: string[];
   languages: Language[];
   social: string[];
@@ -13,4 +12,5 @@ export interface CV {
   education: Education;
   skill: string[];
   otherSkill?: string[];
+  additional?: Additional;
 }

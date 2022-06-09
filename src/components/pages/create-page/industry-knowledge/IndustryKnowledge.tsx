@@ -1,42 +1,49 @@
-import { Col, Collapse, Row } from "antd";
+import { Button, Col, Collapse, Row, Tag } from "antd";
 import Input from "antd/lib/input/Input";
-import React from "react";
+import TextArea from "antd/lib/input/TextArea";
+import React, { useState } from "react";
 const { Panel } = Collapse;
 
+const knowledges = [] as string[];
+
 const IndustryKnowledge: React.FC = () => {
+  const [knowledges, setKnowledges] = useState<string[]>([]);
+  const [jobTitle, setJobTitle] = useState<string>("");
+
+  const addJobTitle = () => {
+    if (jobTitle) {
+      setKnowledges((prev) => [...prev, jobTitle]);
+      setJobTitle("");
+    }
+  };
+
+  const showJobsAsTags = knowledges.map((job) => (
+    <Tag className="pt-2 pb-2 pl-4 pr-4 rounded mt-2" closable={true} key={job}>
+      {job}
+    </Tag>
+  ));
+
   return (
     <Collapse expandIconPosition={`right`} className="w-full rounded">
-      <Panel className="font-bold" header="Industry Knowledge" key="1">
+      <Panel className="font-bold pb-2" header="Industry Knowledge" key="1">
         <Row>
-          <Col span={12}>
-            <Input placeholder="First name" bordered={true} />
+          <Col span={19}>
+            <Input
+              className="text-sm rounded"
+              placeholder="Ex: User interface, design research, web design... Use tab for each title."
+              name="industryKnowledge"
+              value={jobTitle}
+              onChange={(e) => setJobTitle(e.target.value)}
+            />
           </Col>
-          <Col span={12}>
-            <Input placeholder="Last name" bordered={true} />
+          <Col span={4} className="justify-end ml-2">
+            <Button className="btn rounded h-9" onClick={() => addJobTitle()}>
+              Add
+            </Button>
           </Col>
         </Row>
         <Row>
-          <Col span={12}>
-            <Input placeholder="Job title" bordered={true} />
-          </Col>
-          <Col span={12}>
-            <Input placeholder="Phone" bordered={true} />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <Input placeholder="Email" />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <Input placeholder="Website" />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <Input placeholder="Location" />
-          </Col>
+          <Col className="mt-2">{showJobsAsTags}</Col>
         </Row>
       </Panel>
     </Collapse>

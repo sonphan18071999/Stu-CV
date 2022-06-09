@@ -13,13 +13,9 @@ body {
 }
 
 .btn {
-  width: auto;
   text-align: center;
   background-color: rgb(255, 255, 255);
   color: #748ae8;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  border-radius: 0.3rem;
   text-transform: uppercase;
   font-style: Bold;
 }

@@ -8,7 +8,7 @@ import IndustryKnowledge from "../industry-knowledge/IndustryKnowledge";
 import Languages from "../languages/Languages";
 import MySkill from "../my-skill/MySkill";
 import Social from "../social/Social";
-import UserInformation from "../user-information/UserInformation";
+import UserInformation from "../user-information/UserInformationUI";
 import "./FieldSideBar.scss";
 const { Panel } = Collapse;
 
@@ -46,7 +46,7 @@ const FieldSideBar: FC = () => {
           <MySkill />
         </Col>
         <Col span={18} className="ml-2">
-          <p>This is where CV will be display</p>
+          <p>This is where CV will be displayed</p>
         </Col>
       </Row>
     </>
