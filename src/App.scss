@@ -2,27 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+.btn {
+  width: auto;
+  height: 2rem;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  color: #748ae8;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-radius: 0.3rem;
+  text-transform: uppercase;
+  font-style: Bold;
 }
