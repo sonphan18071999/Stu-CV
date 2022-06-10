@@ -8,7 +8,7 @@ export interface CV {
   languages: Language[];
   social: string[];
   hobbies: string[];
-  experience: Experience;
+  experience: Experience[];
   education: Education;
   skill: string[];
   otherSkill?: string[];

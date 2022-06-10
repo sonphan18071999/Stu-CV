@@ -1,8 +1,8 @@
-import { Col, Collapse, Row } from "antd";
+import { Col, Row } from "antd";
 import Search from "antd/lib/transfer/search";
 import React, { FC } from "react";
-import Education from "../education/Education";
-import Experience from "../experience/Experience";
+import Education from "../education/EducationUI";
+import Experience from "../experience/ExperienceUI";
 import Hobbies from "../hobbies/Hobbies";
 import IndustryKnowledge from "../industry-knowledge/IndustryKnowledge";
 import Languages from "../languages/Languages";
@@ -10,13 +10,6 @@ import MySkill from "../my-skill/MySkill";
 import Social from "../social/Social";
 import UserInformation from "../user-information/UserInformationUI";
 import "./FieldSideBar.scss";
-const { Panel } = Collapse;
-
-const getIndustryKnowledge = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-) => {
-  console.log("Change:", e.target.value);
-};
 
 const FieldSideBar: FC = () => {
   return (

@@ -1,10 +1,8 @@
 import { Button, Col, Collapse, Row, Tag } from "antd";
 import Input from "antd/lib/input/Input";
-import TextArea from "antd/lib/input/TextArea";
 import React, { useState } from "react";
-const { Panel } = Collapse;
 
-const knowledges = [] as string[];
+const { Panel } = Collapse;
 
 const IndustryKnowledge: React.FC = () => {
   const [knowledges, setKnowledges] = useState<string[]>([]);
