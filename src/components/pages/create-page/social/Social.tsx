@@ -1,7 +1,7 @@
+import React, { useState } from "react";
 import { Col, Collapse, Row } from "antd";
 import { MailFilled, FacebookFilled, LinkedinFilled } from "@ant-design/icons";
 import Input from "antd/lib/input/Input";
-import React, { useState } from "react";
 const { Panel } = Collapse;
 
 const Social: React.FC = () => {
@@ -22,6 +22,7 @@ const Social: React.FC = () => {
         <Row>
           <Col span={24}>
             <Input
+              className="mt-2"
               placeholder="LinkedIn"
               addonBefore={<LinkedinFilled />}
               onChange={(e) => setSocials([...socials, e.target.value])}
@@ -31,6 +32,7 @@ const Social: React.FC = () => {
         <Row>
           <Col span={24}>
             <Input
+              className="mt-2"
               placeholder="Mail"
               addonBefore={<MailFilled />}
               onChange={(e) => setSocials([...socials, e.target.value])}

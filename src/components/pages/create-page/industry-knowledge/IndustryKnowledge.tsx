@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import { Button, Col, Collapse, Row, Tag } from "antd";
 import Input from "antd/lib/input/Input";
-import React, { useState } from "react";
 
 const { Panel } = Collapse;
 
@@ -22,8 +22,12 @@ const IndustryKnowledge: React.FC = () => {
   ));
 
   return (
-    <Collapse expandIconPosition={`right`} className="w-full rounded">
-      <Panel className="font-bold pb-2" header="Industry Knowledge" key="1">
+    <Collapse
+      expandIconPosition={`right`}
+      className="w-full rounded"
+      activeKey={3}
+    >
+      <Panel className="font-bold pb-2" header="Industry Knowledge" key={3}>
         <Row>
           <Col span={19}>
             <Input

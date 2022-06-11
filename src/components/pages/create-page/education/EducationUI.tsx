@@ -44,7 +44,7 @@ const EducationUI: FC = () => {
                 ></Input>
               </Col>
             </Row>
-            <Row className="mt-2">
+            <Row className="mt-2" gutter={{ lg: 8 }}>
               <Col span={12}>
                 <DatePicker
                   className="w-full text-xs rounded"
@@ -70,7 +70,7 @@ const EducationUI: FC = () => {
 
   return (
     <Collapse expandIconPosition={`right`} className="rounded">
-      <Panel className="font-bold" header="Education" key="2">
+      <Panel className="font-bold" header="Education" key={10}>
         {addMoreEducation}
         <Row>
           <Col className="flex justify-center mt-2" span={24}>

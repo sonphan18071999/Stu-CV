@@ -15,7 +15,7 @@ const FieldSideBar: FC = () => {
   return (
     <>
       <Row>
-        <Col span={5} className="sidebar pt-4 pb-2 px-2 w-full h-full">
+        <Col span={24} className="sidebar pt-4 pb-2 px-2 w-full h-full">
           <Row>
             <Col span={24} className="rounded">
               <Search placeholder="Search for information" />
@@ -37,9 +37,6 @@ const FieldSideBar: FC = () => {
           <Education />
           <div className="mt-2"></div>
           <MySkill />
-        </Col>
-        <Col span={18} className="ml-2">
-          <p>This is where CV will be displayed</p>
         </Col>
       </Row>
     </>

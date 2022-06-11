@@ -1,9 +1,26 @@
-import { Col, Collapse, Row } from "antd";
-import Input from "antd/lib/input/Input";
 import React, { useState } from "react";
+import { Button, Col, Collapse, Row } from "antd";
+import Input from "antd/lib/input/Input";
+import { UploadOutlined } from "@ant-design/icons";
 import UserInformation from "../../../../models/UserInformation";
+import Upload, { UploadProps } from "antd/lib/upload/Upload";
 const { Panel } = Collapse;
 const initUser = {} as UserInformation;
+
+const props: UploadProps = {
+  action: "//jsonplaceholder.typicode.com/posts/",
+  listType: "picture",
+  previewFile(file) {
+    console.log("Your upload file:", file);
+    // Your process logic. Here we just mock to the same file
+    return fetch("https://next.json-generator.com/api/json/get/4ytyBoLK8", {
+      method: "POST",
+      body: file,
+    })
+      .then((res) => res.json())
+      .then(({ thumbnail }) => thumbnail);
+  },
+};
 
 const UserInformationUI: React.FC = () => {
   const [user, setUser] = useState<UserInformation>(initUser);
@@ -16,13 +33,17 @@ const UserInformationUI: React.FC = () => {
   };
 
   return (
-    <Collapse expandIconPosition={`right`} className="w-full rounded">
-      <Panel className="font-bold" header="User Information" key="1">
-        <Row>
+    <Collapse
+      expandIconPosition={`right`}
+      className="w-full rounded"
+      activeKey={2}
+    >
+      <Panel className="font-bold" header="User Information" key={2}>
+        <Row gutter={{ lg: 8 }}>
           <Col span={12}>
             <Input
               bordered={true}
-              className="rounded text-xs"
+              className="rounded text-sm"
               placeholder="First Name"
               name="firstName"
               onChange={(e) => updateUser(e)}
@@ -33,19 +54,19 @@ const UserInformationUI: React.FC = () => {
             <Input
               placeholder="Last Name"
               bordered={true}
-              className="rounded text-xs"
+              className="rounded text-sm"
               name="lastName"
               onChange={(e) => updateUser(e)}
               value={user.lastName}
             />
           </Col>
         </Row>
-        <Row className="mt-2">
+        <Row className="mt-2" gutter={{ lg: 8 }}>
           <Col span={12}>
             <Input
               placeholder="Job title"
               bordered={true}
-              className="rounded text-xs"
+              className="rounded text-sm"
               name="title"
               onChange={(e) => updateUser(e)}
               value={user.title}
@@ -55,7 +76,7 @@ const UserInformationUI: React.FC = () => {
             <Input
               placeholder="Phone"
               bordered={true}
-              className="rounded text-xs"
+              className="rounded text-sm"
               name="phone"
               onChange={(e) => updateUser(e)}
               value={user.phone}
@@ -66,7 +87,7 @@ const UserInformationUI: React.FC = () => {
           <Col span={24}>
             <Input
               placeholder="Email"
-              className="rounded text-xs text-xs"
+              className="rounded text-sm"
               name="email"
               onChange={(e) => updateUser(e)}
               value={user.email}
@@ -77,7 +98,7 @@ const UserInformationUI: React.FC = () => {
           <Col span={24}>
             <Input
               placeholder="Website"
-              className="rounded text-xs"
+              className="rounded text-sm"
               name="website"
               onChange={(e) => updateUser(e)}
               value={user.website}
@@ -88,11 +109,18 @@ const UserInformationUI: React.FC = () => {
           <Col span={24}>
             <Input
               placeholder="Location"
-              className="rounded text-xs"
+              className="rounded text-sm"
               name="location"
               onChange={(e) => updateUser(e)}
               value={user.location}
             />
+          </Col>
+        </Row>
+        <Row className="mt-2">
+          <Col span={24}>
+            <Upload {...props} className="flex justify-end">
+              <Button icon={<UploadOutlined />}>Upload your avatar</Button>
+            </Upload>
           </Col>
         </Row>
       </Panel>

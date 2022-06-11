@@ -26,7 +26,7 @@ const ExperienceUI: FC = () => {
   const addMoreCompany = yearsOfExperience.map((experience, idx) => (
     <div className="mt-2">
       <Collapse>
-        <Panel className="font-bold" header={"Company " + ++idx} key="2">
+        <Panel className="font-bold" header={"Company " + ++idx} key={idx}>
           <Row>
             <Col span={24}>
               <Input className="text-sm" placeholder="Company name"></Input>
@@ -37,7 +37,7 @@ const ExperienceUI: FC = () => {
               <Input className="text-xs" placeholder="Role | Position"></Input>
             </Col>
           </Row>
-          <Row className="mt-2">
+          <Row className="mt-2" gutter={{ lg: 8 }}>
             <Col span={12}>
               <DatePicker
                 className="w-full text-xs"
