@@ -1,6 +1,11 @@
 import React from "react";
 import { Button, Card, Col, Row } from "antd";
 import UserInformationPreview from "../user-information/UserInformationPreview";
+import IndustryKnowledgePreview from "../industry-knowledge/IndustryKnowledgePreview";
+import LanguagesPreview from "../languages/LanguagesPreview";
+import SocialPreview from "../social/SocialPreview";
+import HobbiesPreview from "../hobbies/HobbiesPreview";
+import ExperienceUIPreview from "../experience/ExperienceUIPreview";
 
 const CVDisplayUI: React.FC = () => {
   return (
@@ -23,11 +28,22 @@ const CVDisplayUI: React.FC = () => {
               className="rounded w-5/6
 background--gradient h-full"
             >
-              <Row>
-                <Col span={12} className="background--opacity p-2 rounded">
+              <Row gutter={{ lg: 16 }}>
+                <Col
+                  span={12}
+                  className="background--opacity p-2 rounded-3xl pb-6"
+                >
                   <UserInformationPreview />
+                  <IndustryKnowledgePreview />
+                  <LanguagesPreview />
+                  <SocialPreview />
+                  <HobbiesPreview />
                 </Col>
-                <Col span={12}></Col>
+                <Col span={12}>
+                  <Card className="rounded-3xl">
+                    <ExperienceUIPreview />
+                  </Card>
+                </Col>
               </Row>
             </Card>
           </Col>

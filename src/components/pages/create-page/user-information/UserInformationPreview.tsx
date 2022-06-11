@@ -19,13 +19,13 @@ const UserInformationPreview: React.FC = () => {
         </Col>
         <Col span={14}>
           <h2>
-            <p className="text-2xl text-white"> Folly </p>
+            <p className="text-2xl text-gray-light"> Folly </p>
           </h2>
           <h2>
-            <p className="text-3xl text-white-500 font-bold"> Justin </p>
+            <p className="text-3xl text-white font-bold"> Justin </p>
           </h2>
 
-          <h3 className="text-sm italic mt-3">
+          <h3 className="text-sm italic mt-3 text-gray-light">
             <p>UI/UX Designer</p>
           </h3>
         </Col>

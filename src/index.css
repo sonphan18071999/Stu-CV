@@ -27,6 +27,11 @@ body {
   pointer-events: none;
 }
 
+.btn--grey-display {
+  background-color: rgb(84, 84, 84);
+  color: white;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

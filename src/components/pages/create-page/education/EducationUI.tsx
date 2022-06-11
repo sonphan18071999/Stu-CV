@@ -21,8 +21,8 @@ const EducationUI: FC = () => {
 
   const addMoreEducation = educations.map(
     (education: Education, idx: number) => (
-      <div className="mt-2 rounded">
-        <Collapse className="rounded">
+      <div className="mt-2 rounded" key={idx}>
+        <Collapse className="rounded" key={idx}>
           <Panel
             className="font-bold rounded"
             header={"School of Education " + ++idx}

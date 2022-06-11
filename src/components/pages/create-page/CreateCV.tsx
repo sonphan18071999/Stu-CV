@@ -7,6 +7,7 @@ import FieldSideBar from "./fields-drawer/FieldSideBar";
 const CreateCV: React.FC = () => {
   return (
     <>
+      Your CV will look like below
       <div>
         <AppHeader />
         <Row>
