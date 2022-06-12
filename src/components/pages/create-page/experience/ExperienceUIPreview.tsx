@@ -1,13 +1,13 @@
-import { Col, Row } from "antd";
 import React from "react";
+import { Col, Row } from "antd";
 
 const ExperienceUIPreview: React.FC = () => {
   return (
     <>
       <Row>
-        <Col span={6}>
+        <Col span={24}>
           <button className=" rounded-lg btn--grey-display pl-8 pr-8 py-2">
-            <span className="text-sm">
+            <span className="text-xl uppercase">
               <b>Experience</b>
             </span>
           </button>
@@ -16,7 +16,7 @@ const ExperienceUIPreview: React.FC = () => {
       </Row>
       <Row className="mt-2">
         <Col span={24}>
-          <p className="text-2xl font-bold">Blue Moon Consultency Studio</p>
+          <p className="text-xl font-bold">Blue Moon Consultency Studio</p>
         </Col>
       </Row>
       <Row>
@@ -43,7 +43,7 @@ const ExperienceUIPreview: React.FC = () => {
 
       <Row className="mt-2">
         <Col span={24}>
-          <p className="text-2xl font-bold">Black Yark product design</p>
+          <p className="text-xl font-bold">Black Yark product design</p>
         </Col>
       </Row>
       <Row>

@@ -6,29 +6,40 @@ import LanguagesPreview from "../languages/LanguagesPreview";
 import SocialPreview from "../social/SocialPreview";
 import HobbiesPreview from "../hobbies/HobbiesPreview";
 import ExperienceUIPreview from "../experience/ExperienceUIPreview";
+import EducationPreview from "../education/EducationPreview";
+import MySkillPreview from "../my-skill/MySkillPreview";
+import OtherSkillPreview from "../other-skills/OtherSkill";
+
+const exportCV = () => {
+  console.log(document.querySelector(".cv__display")?.innerHTML);
+};
 
 const CVDisplayUI: React.FC = () => {
   return (
     <>
-      <Card className="h-full">
-        <Row>
+      <Card className="h-full ">
+        <Row className="flex justify-center">
           <Col span={18} className="a">
             <h2 className="font-bold text-lg ">
               Your CV will look like below...
             </h2>
           </Col>
-          <Col span={6} className="flex justify-end">
+          <Col span={4} className="flex justify-end">
             <Button className="btn rounded mr-2">Save as Draft</Button>
-            <Button className="btn rounded">Export</Button>
+            <Button className="btn rounded" onClick={() => exportCV()}>
+              Export
+            </Button>
           </Col>
         </Row>
-        <Row className="h-full mt-4">
-          <Col span={24}>
+        <Row className="h-full mt-6 flex justify-center">
+          <Col span={22}>
             <Card
-              className="rounded w-5/6
-background--gradient h-full"
+              className="rounded
+background--gradient h-full
+cv__display
+"
             >
-              <Row gutter={{ lg: 16 }}>
+              <Row gutter={{ lg: 16 }} className="flex justify-center ">
                 <Col
                   span={12}
                   className="background--opacity p-2 rounded-3xl pb-6"
@@ -42,6 +53,9 @@ background--gradient h-full"
                 <Col span={12}>
                   <Card className="rounded-3xl">
                     <ExperienceUIPreview />
+                    <EducationPreview />
+                    <MySkillPreview />
+                    <OtherSkillPreview />
                   </Card>
                 </Col>
               </Row>

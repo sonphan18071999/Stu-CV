@@ -1,3 +1,4 @@
+import React, { FC, useState } from "react";
 import {
   Button,
   Col,
@@ -7,7 +8,6 @@ import {
   Input,
   Row,
 } from "antd";
-import React, { FC, useState } from "react";
 import Education from "../../../../models/Education";
 const { Panel } = Collapse;
 

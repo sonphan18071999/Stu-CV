@@ -1,17 +1,13 @@
-import { Col, Row } from "antd";
 import React from "react";
+import { Col, Row } from "antd";
 import football from "../../../commons/images/icons/football.png";
 import hike from "../../../commons/images/icons/hike.png";
 import photo from "../../../commons/images/icons/photo.png";
 import reading from "../../../commons/images/icons/reading.png";
 import singing from "../../../commons/images/icons/microphone.png";
+import { IconCustom } from "../../../../models/IconCustom";
 
-interface Hobby {
-  url: string;
-  name: string;
-}
-
-const hobbyIcons: Hobby[] = [
+const hobbyIcons: IconCustom[] = [
   { url: photo, name: "Photo" },
   { url: reading, name: "Reading" },
   { url: singing, name: "Singing" },
