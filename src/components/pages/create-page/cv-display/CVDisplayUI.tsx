@@ -1,5 +1,7 @@
-import React from "react";
-import { Button, Card, Col, Row } from "antd";
+import React, { createElement, useState } from "react";
+import { Button, Card, Col, Modal, Row } from "antd";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 import UserInformationPreview from "../user-information/UserInformationPreview";
 import IndustryKnowledgePreview from "../industry-knowledge/IndustryKnowledgePreview";
 import LanguagesPreview from "../languages/LanguagesPreview";
@@ -10,14 +12,30 @@ import EducationPreview from "../education/EducationPreview";
 import MySkillPreview from "../my-skill/MySkillPreview";
 import OtherSkillPreview from "../other-skills/OtherSkill";
 
-const exportCV = () => {
-  console.log(document.querySelector(".cv__display")?.innerHTML);
-};
-
 const CVDisplayUI: React.FC = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const cv = document.getElementsByClassName("cv__display")[0] as HTMLElement;
+  const cvExport = document.getElementsByClassName(
+    "cv__preview-export"
+  )[0] as HTMLElement;
+  let pdf = new jsPDF("p", "px", [1375, 1170]);
+
+  const previewCV = () => {
+    setIsModalVisible(true);
+    html2canvas(cv).then((canvas) => {
+      cvExport.appendChild(canvas);
+    });
+  };
+
+  const exportCV = async () => {
+    await pdf.html(cvExport);
+    pdf.save("CV.PDF");
+    setIsModalVisible(false);
+  };
+
   return (
     <>
-      <Card className="h-full ">
+      <Card className="h-full">
         <Row className="flex justify-center">
           <Col span={18} className="a">
             <h2 className="font-bold text-lg ">
@@ -26,7 +44,7 @@ const CVDisplayUI: React.FC = () => {
           </Col>
           <Col span={4} className="flex justify-end">
             <Button className="btn rounded mr-2">Save as Draft</Button>
-            <Button className="btn rounded" onClick={() => exportCV()}>
+            <Button className="btn rounded" onClick={() => previewCV()}>
               Export
             </Button>
           </Col>
@@ -35,9 +53,8 @@ const CVDisplayUI: React.FC = () => {
           <Col span={22}>
             <Card
               className="rounded
-background--gradient h-full
-cv__display
-"
+                        background--gradient h-full
+                        cv__display"
             >
               <Row gutter={{ lg: 16 }} className="flex justify-center ">
                 <Col
@@ -63,6 +80,15 @@ cv__display
           </Col>
         </Row>
       </Card>
+      <Modal
+        title="Preview your CV before download"
+        visible={isModalVisible}
+        onOk={() => exportCV()}
+        onCancel={() => setIsModalVisible(false)}
+        width={"1300px"}
+      >
+        <div className="cv__preview-export flex justify-center"></div>
+      </Modal>
     </>
   );
 };
