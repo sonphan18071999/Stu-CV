@@ -19,7 +19,9 @@ const initSkills = [
 ];
 
 const skillOptions = initSkills.map((skill) => (
-  <Option value={skill}>{skill}</Option>
+  <Option value={skill} key={skill}>
+    {skill}
+  </Option>
 ));
 const MySkill: FC = () => {
   const [skills, setSkills] = useState<string[]>([]);

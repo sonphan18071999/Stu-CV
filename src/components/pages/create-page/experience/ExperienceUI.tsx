@@ -1,3 +1,4 @@
+import React, { FC, useState } from "react";
 import {
   Button,
   Col,
@@ -8,7 +9,6 @@ import {
   Row,
 } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import React, { FC, useState } from "react";
 import Experience from "../../../../models/Experience";
 
 const { Panel } = Collapse;
@@ -24,9 +24,9 @@ const ExperienceUI: FC = () => {
   ]);
 
   const addMoreCompany = yearsOfExperience.map((experience, idx) => (
-    <div className="mt-2">
-      <Collapse>
-        <Panel className="font-bold" header={"Company " + ++idx} key="2">
+    <div className="mt-2" key={idx}>
+      <Collapse key={idx}>
+        <Panel className="font-bold" header={"Company " + ++idx} key={idx}>
           <Row>
             <Col span={24}>
               <Input className="text-sm" placeholder="Company name"></Input>
@@ -37,7 +37,7 @@ const ExperienceUI: FC = () => {
               <Input className="text-xs" placeholder="Role | Position"></Input>
             </Col>
           </Row>
-          <Row className="mt-2">
+          <Row className="mt-2" gutter={{ lg: 8 }}>
             <Col span={12}>
               <DatePicker
                 className="w-full text-xs"

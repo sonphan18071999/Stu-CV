@@ -1,3 +1,4 @@
+import React, { FC, useState } from "react";
 import {
   Button,
   Col,
@@ -7,7 +8,6 @@ import {
   Input,
   Row,
 } from "antd";
-import React, { FC, useState } from "react";
 import Education from "../../../../models/Education";
 const { Panel } = Collapse;
 
@@ -21,8 +21,8 @@ const EducationUI: FC = () => {
 
   const addMoreEducation = educations.map(
     (education: Education, idx: number) => (
-      <div className="mt-2 rounded">
-        <Collapse className="rounded">
+      <div className="mt-2 rounded" key={idx}>
+        <Collapse className="rounded" key={idx}>
           <Panel
             className="font-bold rounded"
             header={"School of Education " + ++idx}
@@ -44,7 +44,7 @@ const EducationUI: FC = () => {
                 ></Input>
               </Col>
             </Row>
-            <Row className="mt-2">
+            <Row className="mt-2" gutter={{ lg: 8 }}>
               <Col span={12}>
                 <DatePicker
                   className="w-full text-xs rounded"
@@ -70,7 +70,7 @@ const EducationUI: FC = () => {
 
   return (
     <Collapse expandIconPosition={`right`} className="rounded">
-      <Panel className="font-bold" header="Education" key="2">
+      <Panel className="font-bold" header="Education" key={10}>
         {addMoreEducation}
         <Row>
           <Col className="flex justify-center mt-2" span={24}>
