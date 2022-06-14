@@ -1,4 +1,4 @@
-import React, { createElement, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Modal, Row } from "antd";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
@@ -12,25 +12,39 @@ import EducationPreview from "../education/EducationPreview";
 import MySkillPreview from "../my-skill/MySkillPreview";
 import OtherSkillPreview from "../other-skills/OtherSkill";
 
-const CVDisplayUI: React.FC = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const cv = document.getElementsByClassName("cv__display")[0] as HTMLElement;
-  const cvExport = document.getElementsByClassName(
+const displayCVOnModal = () => {
+  let cvEditting = document.getElementsByClassName(
+    "cv__display"
+  )[0] as HTMLElement;
+  let cvExport = document.getElementsByClassName(
     "cv__preview-export"
   )[0] as HTMLElement;
-  let pdf = new jsPDF("p", "px", [1375, 1170]);
 
-  const previewCV = () => {
-    setIsModalVisible(true);
-    html2canvas(cv).then((canvas) => {
-      cvExport.appendChild(canvas);
-    });
-  };
+  html2canvas(cvEditting).then((canvas) => {
+    cvExport.appendChild(canvas);
+  });
+};
+
+const CVDisplayUI: React.FC = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  let pdf = new jsPDF("p", "px", [1375, 1170], true);
+
+  useEffect(() => {
+    if (isModalVisible) {
+      displayCVOnModal();
+    }
+  }, [isModalVisible]);
 
   const exportCV = async () => {
+    let cvExport = document.getElementsByClassName(
+      "cv__preview-export"
+    )[0] as HTMLElement;
+
     await pdf.html(cvExport);
     pdf.save("CV.PDF");
     setIsModalVisible(false);
+    cvExport.firstElementChild?.remove();
   };
 
   return (
@@ -44,7 +58,10 @@ const CVDisplayUI: React.FC = () => {
           </Col>
           <Col span={4} className="flex justify-end">
             <Button className="btn rounded mr-2">Save as Draft</Button>
-            <Button className="btn rounded" onClick={() => previewCV()}>
+            <Button
+              className="btn rounded"
+              onClick={() => setIsModalVisible(true)}
+            >
               Export
             </Button>
           </Col>

@@ -6,7 +6,7 @@ const ExperienceUIPreview: React.FC = () => {
     <>
       <Row>
         <Col span={24}>
-          <button className=" rounded-lg btn--grey-display pl-8 pr-8 py-2">
+          <button className="rounded-lg btn--grey-display pl-8 pr-8 py-2">
             <span className="text-xl uppercase">
               <b>Experience</b>
             </span>
