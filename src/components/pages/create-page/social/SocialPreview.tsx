@@ -1,5 +1,6 @@
 import { Col, Row } from "antd";
 import React from "react";
+import { socialMock } from "../../../../mocks/SocialMock";
 
 const SocialPreview: React.FC = () => {
   return (
@@ -11,19 +12,9 @@ const SocialPreview: React.FC = () => {
               Socials
             </h2>
             <ul className="list-none text-white ml-8 pb-4">
-              <li>
-                <a href="https://www.facebook.com/">Facebook</a>
-              </li>
-              <li>
-                <a href="https://github.com/sonphan18071999/Stu-CV">
-                  Github Account
-                </a>
-              </li>
-              <li>
-                <a href="https://dev.to/cloudcannon/data-files-in-jekyll-32ic">
-                  Visit <b>Dev.to</b> account
-                </a>
-              </li>
+              {socialMock.map((link, indx) => (
+                <li key={indx}>{link}</li>
+              ))}
             </ul>
           </div>
         </Col>

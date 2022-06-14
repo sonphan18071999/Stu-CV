@@ -1,5 +1,6 @@
 import { Col, Row } from "antd";
 import React from "react";
+import { languageMock } from "../../../../mocks/LanguageMock";
 
 const LanguagesPreview: React.FC = () => {
   return (
@@ -11,8 +12,9 @@ const LanguagesPreview: React.FC = () => {
               Languages
             </h2>
             <ul className="list-none text-white ml-8 pb-4">
-              <li>English</li>
-              <li>France</li>
+              {languageMock.map((language, idx) => (
+                <li key={idx}>{language}</li>
+              ))}
             </ul>
           </div>
         </Col>

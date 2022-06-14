@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Row } from "antd";
+import { experienceMock } from "../../../../mocks/ExperienceMock";
 
 const ExperienceUIPreview: React.FC = () => {
   return (
@@ -14,59 +15,32 @@ const ExperienceUIPreview: React.FC = () => {
         </Col>
         <Col span={18}></Col>
       </Row>
-      <Row className="mt-2">
-        <Col span={24}>
-          <p className="text-xl font-bold">Blue Moon Consultency Studio</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={24}>
-          <p className="text-xl italic ">Seniour UI designer</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={24}>
-          <span className="text-sm mt-4 text-gray mr-2">
-            Aug 2020 - Present 2022
-          </span>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={24}>
-          <p className="mt-2">
-            Product team to prototype, design and deliver the UI and UX
-            experience with a lean design process: research, design, test, and
-            iterate.
-          </p>
-        </Col>
-      </Row>
-
-      <Row className="mt-2">
-        <Col span={24}>
-          <p className="text-xl font-bold">Black Yark product design</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={24}>
-          <p className="text-xl italic ">Seniour UX designer</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={24}>
-          <span className="text-sm mt-4 text-gray mr-2">
-            Aug 2015 - Aug 2020
-          </span>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={24}>
-          <p className="mt-2">
-            Lead the UI design with the accountability of the design system,
-            collaborated with product and development teams on core projects to
-            improve product interfaces and experiences.
-          </p>
-        </Col>
-      </Row>
+      {experienceMock.map((company, idx) => (
+        <div key={idx}>
+          <Row className="mt-2">
+            <Col span={24}>
+              <p className="text-xl font-bold">{company.name}</p>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <p className="text-xl italic ">{company.role}</p>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <span className="text-sm mt-4 text-gray mr-2">
+                {company.startDate} - {company.endDate}
+              </span>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <p className="mt-2">{company.description}</p>
+            </Col>
+          </Row>
+        </div>
+      ))}
     </>
   );
 };
