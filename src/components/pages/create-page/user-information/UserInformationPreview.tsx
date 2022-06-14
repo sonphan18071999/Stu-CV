@@ -6,6 +6,7 @@ import {
   HomeFilled,
   PhoneFilled,
 } from "@ant-design/icons";
+import { userInformationMock } from "../../../../mocks/UserInformationMock";
 
 const UserInformationPreview: React.FC = () => {
   return (
@@ -14,19 +15,25 @@ const UserInformationPreview: React.FC = () => {
         <Col span={10}>
           <Avatar
             size={{ xs: 24, sm: 32, md: 64, lg: 64, xl: 100, xxl: 120 }}
-            src="https://joeschmoe.io/api/v1/random"
+            src={userInformationMock.avatar}
           />
         </Col>
         <Col span={14}>
           <h2>
-            <p className="text-2xl text-gray-light"> Folly </p>
+            <p className="text-2xl text-gray-light">
+              {" "}
+              {userInformationMock.fistName}{" "}
+            </p>
           </h2>
           <h2>
-            <p className="text-3xl text-white font-bold"> Justin </p>
+            <p className="text-3xl text-white font-bold">
+              {" "}
+              {userInformationMock.lastName}{" "}
+            </p>
           </h2>
 
           <h3 className="text-sm italic mt-3 text-gray-light">
-            <p>UI/UX Designer</p>
+            <p>{userInformationMock.title}</p>
           </h3>
         </Col>
       </Row>
@@ -38,7 +45,7 @@ const UserInformationPreview: React.FC = () => {
                 <MailFilled style={{ fontSize: "30px" }} />
               </Col>
               <Col span={18}>
-                <p>sonphan18071999@gmail.com</p>
+                <p>{userInformationMock.email}</p>
               </Col>
             </Row>
           </Button>
@@ -52,7 +59,7 @@ const UserInformationPreview: React.FC = () => {
                 <PhoneFilled style={{ fontSize: "30px" }} />
               </Col>
               <Col span={12}>
-                <p>0765 844 885</p>
+                <p>{userInformationMock.phone}</p>
               </Col>
             </Row>
           </Button>
@@ -66,7 +73,9 @@ const UserInformationPreview: React.FC = () => {
                 <ChromeFilled style={{ fontSize: "30px" }} />
               </Col>
               <Col span={8}>
-                <p>www.student-cv.com</p>
+                <a href={userInformationMock.website} target="_blank">
+                  {userInformationMock.website}
+                </a>
               </Col>
             </Row>
           </Button>{" "}
@@ -80,9 +89,7 @@ const UserInformationPreview: React.FC = () => {
                 <HomeFilled style={{ fontSize: "30px" }} />
               </Col>
               <Col span={6} className="w-full">
-                <p className="break-normal">
-                  59, Long Thuan, D9, Ho Chi Minh City
-                </p>
+                <p className="break-normal">{userInformationMock.location}</p>
               </Col>
             </Row>
           </Button>{" "}

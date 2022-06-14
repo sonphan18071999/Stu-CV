@@ -1,5 +1,6 @@
 import { Col, Row } from "antd";
 import React from "react";
+import { industryKnowledgeMock } from "../../../../mocks/IndustryKnowledge";
 
 const IndustryKnowledgePreview: React.FC = () => {
   return (
@@ -11,10 +12,9 @@ const IndustryKnowledgePreview: React.FC = () => {
               Industry Knowledge
             </h2>
             <ul className="list-disc text-white ml-8 pb-4">
-              <li>User Interface</li>
-              <li>User Experience</li>
-              <li>Product Design</li>
-              <li>Web Design</li>
+              {industryKnowledgeMock.map((knowledge, idx) => (
+                <li key={idx}>{knowledge}</li>
+              ))}
             </ul>
           </div>
         </Col>
