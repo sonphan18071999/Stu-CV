@@ -1,29 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Collapse, Row } from "antd";
 import Input from "antd/lib/input/Input";
 import { UploadOutlined } from "@ant-design/icons";
 import UserInformation from "../../../../models/UserInformation";
 import Upload, { UploadProps } from "antd/lib/upload/Upload";
+import _ from "lodash";
+import { UploadFile } from "antd/lib/upload/interface";
 const { Panel } = Collapse;
 const initUser = {} as UserInformation;
 
 const props: UploadProps = {
-  action: "//jsonplaceholder.typicode.com/posts/",
   listType: "picture",
-  previewFile(file) {
-    console.log("Your upload file:", file);
-    // Your process logic. Here we just mock to the same file
-    return fetch("https://next.json-generator.com/api/json/get/4ytyBoLK8", {
-      method: "POST",
-      body: file,
-    })
-      .then((res) => res.json())
-      .then(({ thumbnail }) => thumbnail);
-  },
 };
 
 const UserInformationUI: React.FC = () => {
   const [user, setUser] = useState<UserInformation>(initUser);
+  const [avatar, setAvatar] = useState<UploadFile[]>([]);
+
+  useEffect(() => {
+    if (avatar.length > 0) {
+      var reader = new FileReader();
+    }
+  }, [avatar]);
 
   const updateUser = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser((prev) => ({
@@ -32,12 +30,11 @@ const UserInformationUI: React.FC = () => {
     }));
   };
 
+  const handleChange: UploadProps["onChange"] = ({ fileList: avatar }) =>
+    setAvatar(avatar);
+
   return (
-    <Collapse
-      expandIconPosition={`right`}
-      className="w-full rounded"
-      activeKey={2}
-    >
+    <Collapse expandIconPosition={`right`} className="w-full rounded">
       <Panel className="font-bold" header="User Information" key={2}>
         <Row gutter={{ lg: 8 }}>
           <Col span={12}>
@@ -118,7 +115,12 @@ const UserInformationUI: React.FC = () => {
         </Row>
         <Row className="mt-2">
           <Col span={24}>
-            <Upload {...props} className="flex justify-end">
+            <Upload
+              {...props}
+              className="block"
+              showUploadList={true}
+              onChange={handleChange}
+            >
               <Button icon={<UploadOutlined />}>Upload your avatar</Button>
             </Upload>
           </Col>
