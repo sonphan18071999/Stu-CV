@@ -15,13 +15,20 @@ const props: UploadProps = {
 
 const UserInformationUI: React.FC = () => {
   const [user, setUser] = useState<UserInformation>(initUser);
-  const [avatar, setAvatar] = useState<UploadFile[]>([]);
+  const [avatars, setAvatars] = useState<UploadFile[]>([]);
 
   useEffect(() => {
-    if (avatar.length > 0) {
-      var reader = new FileReader();
+    if (avatars.length > 0) {
+      avatars.forEach((file: any) => {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          if (e.target) {
+            file.base64 = e.target.result;
+          }
+        };
+      });
     }
-  }, [avatar]);
+  }, [avatars]);
 
   const updateUser = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser((prev) => ({
@@ -31,7 +38,7 @@ const UserInformationUI: React.FC = () => {
   };
 
   const handleChange: UploadProps["onChange"] = ({ fileList: avatar }) =>
-    setAvatar(avatar);
+    setAvatars(avatar);
 
   return (
     <Collapse expandIconPosition={`right`} className="w-full rounded">
@@ -120,6 +127,8 @@ const UserInformationUI: React.FC = () => {
               className="block"
               showUploadList={true}
               onChange={handleChange}
+              multiple={false}
+              accept="image/png, image/jpeg"
             >
               <Button icon={<UploadOutlined />}>Upload your avatar</Button>
             </Upload>
