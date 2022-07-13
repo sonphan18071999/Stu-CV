@@ -4,6 +4,9 @@ import Input from "antd/lib/input/Input";
 import { UploadOutlined } from "@ant-design/icons";
 import UserInformation from "../../../../models/UserInformation";
 import Upload, { UploadProps } from "antd/lib/upload/Upload";
+import { useAppDispatch, useAppSelector } from "../../../../app/hook";
+import { increment } from "../../../../redux/reducer/counterSlice";
+import { setUserInformation } from "../../../../redux/reducer/userInformationSlice";
 const { Panel } = Collapse;
 const initUser = {} as UserInformation;
 
@@ -25,20 +28,25 @@ const props: UploadProps = {
 const UserInformationUI: React.FC = () => {
   const [user, setUser] = useState<UserInformation>(initUser);
 
+  const dispatch = useAppDispatch();
+  const count = useAppSelector((state) => state.counter.value);
+
   const updateUser = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
+
+    dispatch(setUserInformation(user));
   };
 
   return (
     <Collapse
       expandIconPosition={`right`}
       className="w-full rounded"
-      activeKey={2}
+      activeKey={10}
     >
-      <Panel className="font-bold" header="User Information" key={2}>
+      <Panel className="font-bold" header="User Information" key={10}>
         <Row gutter={{ lg: 8 }}>
           <Col span={12}>
             <Input
@@ -125,6 +133,7 @@ const UserInformationUI: React.FC = () => {
         </Row>
       </Panel>
     </Collapse>
+
   );
 };
 
