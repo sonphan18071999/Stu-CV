@@ -3,7 +3,7 @@ import UserInformation from "../models/UserInformation";
 export const userInformationMock: UserInformation = {
   avatar:
     "https://tapchicrypto.com/wp-content/uploads/2021/09/Satoshi-Nakamoto-dang-nam-giu-bao-nhieu-bitcoin-1.png",
-  fistName: "Satoshi",
+  firstName: "Satoshi",
   lastName: "Nakamoto",
   title: "Father of Blockchain",
   email: "satoshi@gmail.com",

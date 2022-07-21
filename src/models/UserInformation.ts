@@ -1,6 +1,6 @@
 export default interface UserInformation {
   avatar: string;
-  fistName: string;
+  firstName: string;
   lastName: string;
   title: string;
   email: string;

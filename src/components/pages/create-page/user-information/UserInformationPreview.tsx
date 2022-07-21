@@ -6,34 +6,33 @@ import {
   HomeFilled,
   PhoneFilled,
 } from "@ant-design/icons";
-import { userInformationMock } from "../../../../mocks/UserInformationMock";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../app/store";
 
 const UserInformationPreview: React.FC = () => {
+  const userInformation = useSelector(
+    (state: RootState) => state.userInformation
+  );
+
   return (
     <div className="p-4">
       <Row>
         <Col span={10}>
           <Avatar
             size={{ xs: 24, sm: 32, md: 64, lg: 64, xl: 100, xxl: 120 }}
-            src={userInformationMock.avatar}
+            src={userInformation.avatar}
           />
         </Col>
         <Col span={14}>
           <h2>
-            <p className="text-2xl text-gray-light">
-              {" "}
-              {userInformationMock.fistName}{" "}
-            </p>
-          </h2>
-          <h2>
             <p className="text-3xl text-white font-bold">
-              {" "}
-              {userInformationMock.lastName}{" "}
+              {userInformation.firstName}
+              {userInformation.lastName}
             </p>
           </h2>
 
           <h3 className="text-sm italic mt-3 text-gray-light">
-            <p>{userInformationMock.title}</p>
+            <p>{userInformation.title}</p>
           </h3>
         </Col>
       </Row>
@@ -45,7 +44,7 @@ const UserInformationPreview: React.FC = () => {
                 <MailFilled style={{ fontSize: "30px" }} />
               </Col>
               <Col span={18}>
-                <p>{userInformationMock.email}</p>
+                <p>{userInformation.email}</p>
               </Col>
             </Row>
           </Button>
@@ -59,7 +58,7 @@ const UserInformationPreview: React.FC = () => {
                 <PhoneFilled style={{ fontSize: "30px" }} />
               </Col>
               <Col span={12}>
-                <p>{userInformationMock.phone}</p>
+                <p>{userInformation.phone}</p>
               </Col>
             </Row>
           </Button>
@@ -73,12 +72,12 @@ const UserInformationPreview: React.FC = () => {
                 <ChromeFilled style={{ fontSize: "30px" }} />
               </Col>
               <Col span={8}>
-                <a href={userInformationMock.website} target="_blank">
-                  {userInformationMock.website}
+                <a href={userInformation.website} target="_blank">
+                  {userInformation.website}
                 </a>
               </Col>
             </Row>
-          </Button>{" "}
+          </Button>
         </Col>
       </Row>
       <Row className="mt-4">
@@ -89,10 +88,10 @@ const UserInformationPreview: React.FC = () => {
                 <HomeFilled style={{ fontSize: "30px" }} />
               </Col>
               <Col span={6} className="w-full">
-                <p className="break-normal">{userInformationMock.location}</p>
+                <p className="break-normal">{userInformation.location}</p>
               </Col>
             </Row>
-          </Button>{" "}
+          </Button>
         </Col>
       </Row>
     </div>

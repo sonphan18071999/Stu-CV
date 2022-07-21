@@ -1,44 +1,28 @@
-import React, { useState } from "react";
-import { Button, Col, Collapse, Row } from "antd";
+import React, { useEffect, useState } from "react";
+import { Col, Collapse, Row } from "antd";
 import Input from "antd/lib/input/Input";
-import { UploadOutlined } from "@ant-design/icons";
 import UserInformation from "../../../../models/UserInformation";
-import Upload, { UploadProps } from "antd/lib/upload/Upload";
-import { useAppDispatch, useAppSelector } from "../../../../app/hook";
-import { increment } from "../../../../redux/reducer/counterSlice";
+import { useAppDispatch } from "../../../../app/hook";
 import { setUserInformation } from "../../../../redux/reducer/userInformationSlice";
 const { Panel } = Collapse;
-const initUser = {} as UserInformation;
 
-const props: UploadProps = {
-  action: "//jsonplaceholder.typicode.com/posts/",
-  listType: "picture",
-  previewFile(file) {
-    console.log("Your upload file:", file);
-    // Your process logic. Here we just mock to the same file
-    return fetch("https://next.json-generator.com/api/json/get/4ytyBoLK8", {
-      method: "POST",
-      body: file,
-    })
-      .then((res) => res.json())
-      .then(({ thumbnail }) => thumbnail);
-  },
-};
+const initUser = {} as UserInformation;
 
 const UserInformationUI: React.FC = () => {
   const [user, setUser] = useState<UserInformation>(initUser);
 
   const dispatch = useAppDispatch();
-  const count = useAppSelector((state) => state.counter.value);
 
   const updateUser = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
-
-    dispatch(setUserInformation(user));
   };
+
+  useEffect(() => {
+    dispatch(setUserInformation(user));
+  }, [user]);
 
   return (
     <Collapse
@@ -55,7 +39,7 @@ const UserInformationUI: React.FC = () => {
               placeholder="First Name"
               name="firstName"
               onChange={(e) => updateUser(e)}
-              value={user.fistName}
+              value={user.firstName}
             />
           </Col>
           <Col span={12}>
@@ -126,14 +110,11 @@ const UserInformationUI: React.FC = () => {
         </Row>
         <Row className="mt-2">
           <Col span={24}>
-            <Upload {...props} className="flex justify-end">
-              <Button icon={<UploadOutlined />}>Upload your avatar</Button>
-            </Upload>
+            <input type="file" />
           </Col>
         </Row>
       </Panel>
     </Collapse>
-
   );
 };
 
