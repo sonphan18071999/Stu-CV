@@ -12,23 +12,27 @@ import EducationPreview from "../education/EducationPreview";
 import MySkillPreview from "../my-skill/MySkillPreview";
 import OtherSkillPreview from "../other-skills/OtherSkill";
 
-const displayCVOnModal = () => {
-  let cvEditting = document.getElementsByClassName(
-    "cv__display"
-  )[0] as HTMLElement;
-  let cvExport = document.getElementsByClassName(
-    "cv__preview-export"
-  )[0] as HTMLElement;
+const displayCVOnModal = async () => {
+  const cvLayout = document.getElementById('cv-layout') as HTMLElement;
+  const cvExport = document.getElementById('preview-cv') as HTMLElement;
 
-  html2canvas(cvEditting).then((canvas) => {
-    cvExport.appendChild(canvas);
-  });
+  cvExport.innerHTML = '';
+
+  try {
+    const canvas = await html2canvas(cvLayout);
+  
+    if (document.body.contains(cvExport)) {
+      cvExport.appendChild(canvas);
+    } else {
+      console.error('cvExport is not in the document.');
+    }
+  } catch (error) {
+    console.error('Error capturing the CV layout:', error);
+  }
 };
 
 const CVDisplayUI: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  let pdf = new jsPDF("p", "px", [1375, 1170], true);
 
   useEffect(() => {
     if (isModalVisible) {
@@ -37,14 +41,19 @@ const CVDisplayUI: React.FC = () => {
   }, [isModalVisible]);
 
   const exportCV = async () => {
-    let cvExport = document.getElementsByClassName(
-      "cv__preview-export"
-    )[0] as HTMLElement;
 
-    await pdf.html(cvExport);
-    pdf.save("CV.PDF");
-    setIsModalVisible(false);
-    cvExport.firstElementChild?.remove();
+    const cvLayout = document.getElementById(
+      "cv-layout"
+    ) as HTMLElement;
+
+    html2canvas(cvLayout).then((canvas: HTMLCanvasElement) => {
+      const imageDataURL = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      pdf.addImage(imageDataURL, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('screenshot.pdf');
+    })
   };
 
   return (
@@ -72,6 +81,7 @@ const CVDisplayUI: React.FC = () => {
               className="rounded
                         background--gradient h-full
                         cv__display"
+              id="cv-layout"
             >
               <Row gutter={{ lg: 16 }} className="flex justify-center ">
                 <Col
@@ -104,7 +114,8 @@ const CVDisplayUI: React.FC = () => {
         onCancel={() => setIsModalVisible(false)}
         width={"1300px"}
       >
-        <div className="cv__preview-export flex justify-center"></div>
+        <Row className="cv__preview-export flex justify-center cv__display"
+        id="preview-cv"></Row>
       </Modal>
     </>
   );
