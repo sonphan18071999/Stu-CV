@@ -110,7 +110,7 @@ const UserInformationUI: React.FC = () => {
         </Row>
         <Row className="mt-2">
           <Col span={24}>
-            <input type="file" />
+            <input type="file"/>
           </Col>
         </Row>
       </Panel>

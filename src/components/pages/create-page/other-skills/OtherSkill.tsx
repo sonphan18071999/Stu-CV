@@ -6,13 +6,14 @@ const OtherSkillPreview: React.FC = () => {
     <>
       <Row>
         <Col>
-          <button className=" rounded-lg btn--grey-display pl-8 pr-8 py-2">
-            <span className="text-xl uppercase">
+          <div className="py-2">
+            <span className="text-xl uppercase pb-2 mb-2">
               <b>Other Skills</b>
             </span>
-          </button>
+          </div>
         </Col>
       </Row>
+      <hr/>
       <Row>
         <Col>
           <p className="mt-4">This place is to show any of place.</p>

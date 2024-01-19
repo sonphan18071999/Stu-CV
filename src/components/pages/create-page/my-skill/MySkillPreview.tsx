@@ -14,14 +14,15 @@ const MySkillPreview: React.FC = () => {
     <>
       <Row className="mt-4">
         <Col span={24}>
-          <button className=" rounded-lg btn--grey-display pl-8 pr-8 py-2">
+          <button className="py-2">
             <span className="text-xl uppercase">
-              <b>My Skills</b>
+              <h3><b>My Skills</b></h3>
             </span>
           </button>
         </Col>
         <Col span={18}></Col>
       </Row>
+      <hr/>
       <Row className="mt-4">
         <Col span={24}>
           <div className="mr-4 rounded-md">

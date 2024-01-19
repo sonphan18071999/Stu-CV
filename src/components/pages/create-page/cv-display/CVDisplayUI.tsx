@@ -13,22 +13,18 @@ import MySkillPreview from "../my-skill/MySkillPreview";
 import OtherSkillPreview from "../other-skills/OtherSkill";
 
 const displayCVOnModal = async () => {
-  const cvLayout = document.getElementById('cv-layout') as HTMLElement;
-  const cvExport = document.getElementById('preview-cv') as HTMLElement;
+  const cvLayout = await document.getElementById('cv-layout') as HTMLElement;
+  const cvExport = await document.getElementById('preview-cv') as HTMLElement;
 
   cvExport.innerHTML = '';
+  const canvas = await html2canvas(cvLayout,{scale:2});
 
-  try {
-    const canvas = await html2canvas(cvLayout);
-  
-    if (document.body.contains(cvExport)) {
-      cvExport.appendChild(canvas);
-    } else {
-      console.error('cvExport is not in the document.');
-    }
-  } catch (error) {
-    console.error('Error capturing the CV layout:', error);
+  if (document.body.contains(cvExport)) {
+    cvExport.appendChild(canvas);
+  } else {
+    console.error('cvExport is not in the document.');
   }
+
 };
 
 const CVDisplayUI: React.FC = () => {
@@ -115,7 +111,7 @@ const CVDisplayUI: React.FC = () => {
         width={"1300px"}
       >
         <Row className="cv__preview-export flex justify-center cv__display"
-        id="preview-cv"></Row>
+          id="preview-cv"></Row>
       </Modal>
     </>
   );

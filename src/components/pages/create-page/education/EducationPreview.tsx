@@ -7,15 +7,15 @@ const EducationPreview: React.FC = () => {
     <>
       <Row className="mt-4">
         <Col span={24}>
-          <button className=" rounded-lg btn--grey-display pl-8 pr-8 py-2">
+          <div className="py-2">
             <span className="text-xl uppercase">
               <b>Education</b>
             </span>
-          </button>
+          </div>
         </Col>
         <Col span={18}></Col>
       </Row>
-
+      <hr/>
       {educationMock.map((school, idx) => (
         <div key={idx}>
           <Row className="mt-2">

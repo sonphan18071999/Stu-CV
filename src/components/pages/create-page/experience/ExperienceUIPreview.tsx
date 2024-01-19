@@ -3,18 +3,15 @@ import { Col, Row } from "antd";
 import { experienceMock } from "../../../../mocks/ExperienceMock";
 
 const ExperienceUIPreview: React.FC = () => {
+  
   return (
     <>
-      <Row>
-        <Col span={24}>
-          <button className="rounded-lg btn--grey-display pl-8 pr-8 py-2">
-            <span className="text-xl uppercase">
-              <b>Experience</b>
-            </span>
+        <div >
+          <button className=" py-2" >
+              <h2 className="text-xl"><b>Experience</b></h2>
           </button>
-        </Col>
-        <Col span={18}></Col>
-      </Row>
+        </div>
+    <hr/>
       {experienceMock.map((company, idx) => (
         <div key={idx}>
           <Row className="mt-2">
