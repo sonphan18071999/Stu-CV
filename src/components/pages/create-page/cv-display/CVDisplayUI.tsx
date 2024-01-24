@@ -11,13 +11,15 @@ import ExperienceUIPreview from "../experience/ExperienceUIPreview";
 import EducationPreview from "../education/EducationPreview";
 import MySkillPreview from "../my-skill/MySkillPreview";
 import OtherSkillPreview from "../other-skills/OtherSkill";
+import Hobbies from "../hobbies/Hobbies";
 
 const displayCVOnModal = async () => {
   const cvLayout = await document.getElementById('cv-layout') as HTMLElement;
   const cvExport = await document.getElementById('preview-cv') as HTMLElement;
 
   cvExport.innerHTML = '';
-  const canvas = await html2canvas(cvLayout,{scale:2});
+  const canvas = await html2canvas(cvLayout, {useCORS:true,allowTaint: true,
+            logging: true});
 
   if (document.body.contains(cvExport)) {
     cvExport.appendChild(canvas);
@@ -42,9 +44,12 @@ const CVDisplayUI: React.FC = () => {
       "cv-layout"
     ) as HTMLElement;
 
-    html2canvas(cvLayout).then((canvas: HTMLCanvasElement) => {
+    html2canvas(cvLayout, {
+      useCORS: true, allowTaint: true,
+      logging: false,
+    }).then((canvas: HTMLCanvasElement) => {
       const imageDataURL = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm');
+      const pdf = new jsPDF();
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
       pdf.addImage(imageDataURL, 'PNG', 0, 0, pdfWidth, pdfHeight);
@@ -64,10 +69,10 @@ const CVDisplayUI: React.FC = () => {
           <Col span={4} className="flex justify-end">
             <Button className="btn rounded mr-2">Save as Draft</Button>
             <Button
-              className="btn rounded"
+              className="btn rounded download__cv"
               onClick={() => setIsModalVisible(true)}
             >
-              Export
+              Download your CV
             </Button>
           </Col>
         </Row>
@@ -88,7 +93,6 @@ const CVDisplayUI: React.FC = () => {
                   <IndustryKnowledgePreview />
                   <LanguagesPreview />
                   <SocialPreview />
-                  <HobbiesPreview />
                 </Col>
                 <Col span={12}>
                   <Card className="rounded-3xl">
@@ -108,7 +112,7 @@ const CVDisplayUI: React.FC = () => {
         visible={isModalVisible}
         onOk={() => exportCV()}
         onCancel={() => setIsModalVisible(false)}
-        width={"1300px"}
+        className="modal-preview__modal"
       >
         <Row className="cv__preview-export flex justify-center cv__display"
           id="preview-cv"></Row>

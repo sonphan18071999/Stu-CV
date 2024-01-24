@@ -4,14 +4,25 @@ import Input from "antd/lib/input/Input";
 import UserInformation from "../../../../models/UserInformation";
 import { useAppDispatch } from "../../../../app/hook";
 import { setUserInformation } from "../../../../redux/reducer/userInformationSlice";
+import ImageUploader from "../../../commons/image-upload/ImageUploader";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../app/store";
 const { Panel } = Collapse;
 
-const initUser = {} as UserInformation;
 
 const UserInformationUI: React.FC = () => {
-  const [user, setUser] = useState<UserInformation>(initUser);
-
   const dispatch = useAppDispatch();
+
+  const userInformation = useSelector(
+    (state: RootState) => state.userInformation
+  );
+
+  const [user, setUser] = useState<UserInformation>(userInformation);
+
+  useEffect(() => {
+    // console.log('user changed',user);
+    dispatch(setUserInformation(user))
+  }, [user]);
 
   const updateUser = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser((prev) => ({
@@ -20,9 +31,9 @@ const UserInformationUI: React.FC = () => {
     }));
   };
 
-  useEffect(() => {
-    dispatch(setUserInformation(user));
-  }, [user]);
+  const handleImageUpload = (dataUrl: string) => {
+    setUser({ ...user, avatar: dataUrl });
+  };
 
   return (
     <Collapse
@@ -110,7 +121,7 @@ const UserInformationUI: React.FC = () => {
         </Row>
         <Row className="mt-2">
           <Col span={24}>
-            <input type="file"/>
+            <ImageUploader onImageUpload={handleImageUpload} />
           </Col>
         </Row>
       </Panel>

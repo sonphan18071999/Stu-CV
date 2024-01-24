@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Button, Col, Row } from "antd";
+import { Avatar, Button, Col, Input, Row } from "antd";
 import {
   ChromeFilled,
   MailFilled,
@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../app/store";
+import '../../../../styles/userInformationPreview.scss';
 
 const UserInformationPreview: React.FC = () => {
   const userInformation = useSelector(
@@ -15,7 +16,7 @@ const UserInformationPreview: React.FC = () => {
   );
 
   return (
-    <div className="p-4">
+    <div className="user-information__preview p-4" >
       <Row>
         <Col span={10}>
           <Avatar
@@ -26,8 +27,10 @@ const UserInformationPreview: React.FC = () => {
         <Col span={14}>
           <h2>
             <p className="text-3xl text-white font-bold">
-              {userInformation.firstName}
-              {userInformation.lastName}
+              <span>{userInformation.firstName} </span>
+              <span>
+                {userInformation.lastName}
+              </span>
             </p>
           </h2>
 
@@ -37,13 +40,27 @@ const UserInformationPreview: React.FC = () => {
         </Col>
       </Row>
       <Row className="mt-4">
-        <Col className="w-full">
-          <Button className="w-full h-10 rounded-3xl btn--white-display flex">
+        <Col span={24}>
+          <Button className="w-full h-10 rounded-3xl btn--white-display">
             <Row>
-              <Col span={6}>
-                <MailFilled style={{ fontSize: "30px" }} />
+              <Col span={24} className="flex text-left">
+                <Col span={3} >
+                  <PhoneFilled className="btn__icon mr-2" />
+                </Col>
+                <p>{userInformation.phone}</p>
               </Col>
-              <Col span={18}>
+            </Row>
+          </Button>
+        </Col>
+      </Row>
+      <Row className="mt-4 ">
+        <Col className="w-full">
+          <Button className="w-full h-10 rounded-3xl btn--white-display ">
+            <Row >
+              <Col span={24} className="flex">
+                <Col span={3}>
+                  <MailFilled className="btn__icon mr-2" />
+                </Col>
                 <p>{userInformation.email}</p>
               </Col>
             </Row>
@@ -51,48 +68,28 @@ const UserInformationPreview: React.FC = () => {
         </Col>
       </Row>
       <Row className="mt-4">
-        <Col span={24}>
-          <Button className="w-full h-10 rounded-3xl btn--white-display flex">
-            <Row>
-              <Col span={12}>
-                <PhoneFilled style={{ fontSize: "30px" }} />
+        <Button className="w-full h-10 rounded-3xl btn--white-display">
+          <Row>
+            <Col span={24} className="text-left flex">
+              <Col span={3}>
+                <ChromeFilled className="btn__icon mr-2" />
               </Col>
-              <Col span={12}>
-                <p>{userInformation.phone}</p>
-              </Col>
-            </Row>
-          </Button>
-        </Col>
+              <p>
+                {userInformation.website}
+              </p>
+            </Col>
+          </Row>
+        </Button>
       </Row>
-      <Row className="mt-4">
-        <Col span={24}>
-          <Button className="w-full h-10 rounded-3xl btn--white-display flex">
-            <Row>
-              <Col span={8}>
-                <ChromeFilled style={{ fontSize: "30px" }} />
-              </Col>
-              <Col span={8}>
-                <a href={userInformation.website} target="_blank">
-                  {userInformation.website}
-                </a>
-              </Col>
-            </Row>
-          </Button>
-        </Col>
-      </Row>
-      <Row className="mt-4">
-        <Col span={24}>
-          <Button className="w-full h-10 rounded-3xl btn--white-display">
-            <Row>
-              <Col span={4}>
-                <HomeFilled style={{ fontSize: "30px" }} />
-              </Col>
-              <Col span={6} className="w-full">
-                <p className="break-normal">{userInformation.location}</p>
-              </Col>
-            </Row>
-          </Button>
-        </Col>
+      <Row className="mt-4" >
+        <Button className="w-full h-10 rounded-3xl btn--white-display text-left">
+          <Row>
+            <Col span={24} className="w-full flex">
+              <Col span={3}><HomeFilled className="btn__icon mr-2" /></Col>
+              <p className="break-normal">{userInformation.location}</p>
+            </Col>
+          </Row>
+        </Button>
       </Row>
     </div>
   );

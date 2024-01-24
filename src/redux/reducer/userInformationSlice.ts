@@ -10,9 +10,8 @@ const initialState: UserInformation = {
   lastName: "",
   title: "",
   email: "",
-  phone: "",
+  phone: ""
 };
-// highlight-end
 
 export const userInformationSlice = createSlice({
   name: "userInformation",
