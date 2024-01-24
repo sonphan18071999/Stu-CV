@@ -5,20 +5,16 @@ import { selectUserInformation, setUserInformation } from '../../../redux/reduce
 import { useAppDispatch } from '../../../redux';
 import { RootState } from '../../../app/store';
 import { ImageUploaderProps } from '../../../models/imageUploaderProps';
+import API_CONFIG from '../../../env';
 const imagePath = require('../../../core/assets/images/avatar.png');
 const { Uploader } = require("uploader");
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload }) => {
-  const userInformation = useSelector(
-    (state: RootState) => state.userInformation
-  );
 
   const [imageUrl, setImageUrl] = useState<string>(imagePath);
   const userInfo = useSelector(selectUserInformation);
   const dispatch = useAppDispatch();
-  const uploader = Uploader({
-    apiKey: "public_FW25brmCEYoHd9m4mUuRvU9Uffmb"
-  });
+  const uploader = Uploader({ apiKey: API_CONFIG.development.apiKey });
 
   useEffect(() => {
     dispatch(setUserInformation({ ...userInfo, avatar: imageUrl }));

@@ -7,7 +7,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(ts|js)x?$/,
+        test: /\.(ts|tsx|js)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -25,8 +25,8 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.svg$/,
-        loader: 'svg-inline-loader'
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'file-loader'
       },
       {
         test: /\.s[ac]ss$/i,
