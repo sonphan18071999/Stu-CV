@@ -4,4 +4,12 @@
     .btn__icon{
         font-size: 30px;
     }
+
+    .overflow{
+        overflow-x: scroll;
+    }
+
+    ::-webkit-scrollbar {
+        height: 1px;
+    }
 }

@@ -41,13 +41,15 @@ const UserInformationPreview: React.FC = () => {
       </Row>
       <Row className="mt-4">
         <Col span={24}>
-          <Button className="w-full h-10 rounded-3xl btn--white-display">
+          <Button className="w-full h-10 rounded-3xl btn--white-display ">
             <Row>
               <Col span={24} className="flex text-left">
                 <Col span={3} >
                   <PhoneFilled className="btn__icon mr-2" />
                 </Col>
-                <p>{userInformation.phone}</p>
+                <Col className="overflow">
+                  <p>{userInformation.phone}</p>
+                </Col>
               </Col>
             </Row>
           </Button>
@@ -61,32 +63,39 @@ const UserInformationPreview: React.FC = () => {
                 <Col span={3}>
                   <MailFilled className="btn__icon mr-2" />
                 </Col>
-                <p>{userInformation.email}</p>
+                <Col className="overflow">
+
+                  <p>{userInformation.email}</p>
+                </Col>
               </Col>
             </Row>
           </Button>
         </Col>
       </Row>
       <Row className="mt-4">
-        <Button className="w-full h-10 rounded-3xl btn--white-display">
+        <Button className="w-full h-10 rounded-3xl btn--white-display ">
           <Row>
             <Col span={24} className="text-left flex">
               <Col span={3}>
                 <ChromeFilled className="btn__icon mr-2" />
               </Col>
-              <p>
-                {userInformation.website}
-              </p>
+              <Col className="overflow">
+                <p>
+                  {userInformation.website}
+                </p>
+              </Col>
             </Col>
           </Row>
         </Button>
       </Row>
       <Row className="mt-4" >
-        <Button className="w-full h-10 rounded-3xl btn--white-display text-left">
+        <Button className="w-full h-10 rounded-3xl btn--white-display text-left ">
           <Row>
             <Col span={24} className="w-full flex">
               <Col span={3}><HomeFilled className="btn__icon mr-2" /></Col>
-              <p className="break-normal">{userInformation.location}</p>
+              <Col className="overflow">
+                <p className="break-normal">{userInformation.location}</p>
+              </Col>
             </Col>
           </Row>
         </Button>

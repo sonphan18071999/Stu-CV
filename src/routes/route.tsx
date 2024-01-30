@@ -8,7 +8,7 @@ export const MainRoutes = () => (
   <Router>
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<CreateCV />} />
         <Route path="/create" element={<CreateCV />} />
       </Routes>
     </Suspense>
