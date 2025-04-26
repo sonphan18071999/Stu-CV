@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "antd";
-import { experienceMock } from "../../../mocks/ExperienceMock";
+import { experienceMock } from "../../../../mocks/ExperienceMock";
 
 const ExperienceUIPreview: React.FC = () => {
   return (

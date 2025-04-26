@@ -7,9 +7,9 @@ import {
   PhoneFilled,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../app/store";
-import UserInformation from "../../../models/UserInformation";
-import "../../../styles/userInformationPreview.scss";
+import { RootState } from "../../../../app/store";
+import UserInformation from "../../../../models/UserInformation";
+import "../../../../styles/userInformationPreview.scss";
 
 const UserInformationPreview: React.FC = () => {
   const userInformation = useSelector(

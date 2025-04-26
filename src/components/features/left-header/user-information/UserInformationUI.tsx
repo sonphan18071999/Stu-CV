@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Col, Collapse, Row } from "antd";
-import UserInformation from "../../../models/UserInformation";
-import { useAppDispatch } from "../../../app/hook";
-import { setUserInformation } from "../../../redux/reducer/userInformationSlice";
-import ImageUploader from "../../commons/image-upload/ImageUploader";
-import HighlightInput from "../../commons/inputs/HighlightInput";
+import UserInformation from "../../../../models/UserInformation";
+import { useAppDispatch } from "../../../../app/hook";
+import { setUserInformation } from "../../../../redux/reducer/userInformationSlice";
+import ImageUploader from "../../../commons/image-upload/ImageUploader";
+import HighlightInput from "../../../commons/inputs/HighlightInput";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../app/store";
+import { RootState } from "../../../../app/store";
 import _ from "lodash";
 const { Panel } = Collapse;
 

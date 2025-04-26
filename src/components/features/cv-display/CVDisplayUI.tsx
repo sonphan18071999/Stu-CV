@@ -7,16 +7,14 @@ import {
 } from "@ant-design/icons";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
-import UserInformationPreview from "../user-information/UserInformationPreview";
-import IndustryKnowledgePreview from "../industry-knowledge/IndustryKnowledgePreview";
-import LanguagesPreview from "../languages/LanguagesPreview";
-import SocialPreview from "../social/SocialPreview";
-import HobbiesPreview from "../hobbies/HobbiesPreview";
-import ExperienceUIPreview from "../experience/ExperienceUIPreview";
-import EducationPreview from "../education/EducationPreview";
-import MySkillPreview from "../my-skill/MySkillPreview";
-import OtherSkillPreview from "../other-skills/OtherSkill";
-import Hobbies from "../hobbies/Hobbies";
+import UserInformationPreview from "../left-header/user-information/UserInformationPreview";
+import IndustryKnowledgePreview from "../left-header/industry-knowledge/IndustryKnowledgePreview";
+import LanguagesPreview from "../left-header/languages/LanguagesPreview";
+import SocialPreview from "../left-header/social/SocialPreview";
+import ExperienceUIPreview from "../left-header/experience/ExperienceUIPreview";
+import EducationPreview from "../left-header/education/EducationPreview";
+import MySkillPreview from "../left-header/my-skill/MySkillPreview";
+import OtherSkillPreview from "../left-header/other-skills/OtherSkill";
 import "./cv-display.scss";
 
 // Update the display function to handle responsive sizing

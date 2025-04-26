@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "antd";
-import { educationMock } from "../../../mocks/EducationMock";
+import { educationMock } from "../../../../mocks/EducationMock";
 
 const EducationPreview: React.FC = () => {
   return (

@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 import React from "react";
-import { industryKnowledgeMock } from "../../../mocks/IndustryKnowledge";
+import { industryKnowledgeMock } from "../../../../mocks/IndustryKnowledge";
 
 const IndustryKnowledgePreview: React.FC = () => {
   return (
