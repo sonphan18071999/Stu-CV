@@ -1,33 +1,52 @@
-import { Col, Row, Input } from "antd";
-import React, { FC, lazy, Suspense, useState, useCallback } from "react";
+import { Col, Row, Input, Empty } from "antd";
+import React, { FC, useState, useCallback, useMemo } from "react";
 import "./FieldSideBar.scss";
 
-const UserInformation = lazy(
-  () => import("../user-information/UserInformationUI")
-);
-const IndustryKnowledge = lazy(
-  () => import("../industry-knowledge/IndustryKnowledge")
-);
-const Languages = lazy(() => import("../languages/Languages"));
-const Social = lazy(() => import("../social/Social"));
-const Hobbies = lazy(() => import("../hobbies/Hobbies"));
-const Experience = lazy(() => import("../experience/ExperienceUI"));
-const Education = lazy(() => import("../education/EducationUI"));
-const MySkill = lazy(() => import("../my-skill/MySkill"));
+// Import from restructured files
+import { ComponentNameKey } from "./constants/componentNames";
+import { FilteredSection } from "./components/FilteredSection";
+import { LazyComponents } from "./components/LazyComponents";
+import { SectionConfig } from "./types/section.types";
+import { filterSectionsByQuery } from "./utils/searchUtils";
 
-const LoadingPlaceholder = () => (
-  <div className="p-3 bg-gray-100 rounded animate-pulse">
-    <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-  </div>
-);
-
+/**
+ * FieldSideBar Component
+ * Displays all field sections with search functionality
+ */
 const FieldSideBar: FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Handle search input changes
   const handleSearch = useCallback((value: string) => {
     setSearchQuery(value);
   }, []);
+
+  // Create sections array with all components
+  const sections = useMemo(
+    (): SectionConfig[] => [
+      {
+        name: "UserInformation",
+        component: <LazyComponents.UserInformation />,
+      },
+      {
+        name: "IndustryKnowledge",
+        component: <LazyComponents.IndustryKnowledge />,
+      },
+      { name: "Languages", component: <LazyComponents.Languages /> },
+      { name: "Social", component: <LazyComponents.Social /> },
+      { name: "Hobbies", component: <LazyComponents.Hobbies /> },
+      { name: "Experience", component: <LazyComponents.Experience /> },
+      { name: "Education", component: <LazyComponents.Education /> },
+      { name: "MySkill", component: <LazyComponents.MySkill /> },
+    ],
+    []
+  );
+
+  // Filter sections based on search query
+  const visibleSections = useMemo(
+    () => filterSectionsByQuery(sections, searchQuery),
+    [sections, searchQuery]
+  );
 
   return (
     <>
@@ -39,41 +58,28 @@ const FieldSideBar: FC = () => {
                 placeholder="Search for information"
                 onChange={(e) => handleSearch(e.target.value)}
                 value={searchQuery}
+                allowClear
               />
             </Col>
           </Row>
+
           <div className="mt-4"></div>
-          <Suspense fallback={<LoadingPlaceholder />}>
-            <UserInformation />
-          </Suspense>
-          <div className="mt-2"></div>
-          <Suspense fallback={<LoadingPlaceholder />}>
-            <IndustryKnowledge />
-          </Suspense>
-          <div className="mt-2"></div>
-          <Suspense fallback={<LoadingPlaceholder />}>
-            <Languages />
-          </Suspense>
-          <div className="mt-2"></div>
-          <Suspense fallback={<LoadingPlaceholder />}>
-            <Social />
-          </Suspense>
-          <div className="mt-2"></div>
-          <Suspense fallback={<LoadingPlaceholder />}>
-            <Hobbies />
-          </Suspense>
-          <div className="mt-2"></div>
-          <Suspense fallback={<LoadingPlaceholder />}>
-            <Experience />
-          </Suspense>
-          <div className="mt-2"></div>
-          <Suspense fallback={<LoadingPlaceholder />}>
-            <Education />
-          </Suspense>
-          <div className="mt-2"></div>
-          <Suspense fallback={<LoadingPlaceholder />}>
-            <MySkill />
-          </Suspense>
+
+          {visibleSections.length === 0 && searchQuery ? (
+            <Empty
+              description={`No sections match "${searchQuery}"`}
+              className="my-8"
+            />
+          ) : (
+            sections.map((section) => (
+              <FilteredSection
+                key={section.name}
+                name={section.name}
+                component={section.component}
+                searchQuery={searchQuery}
+              />
+            ))
+          )}
         </Col>
       </Row>
     </>
