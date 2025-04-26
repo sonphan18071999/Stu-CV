@@ -17,6 +17,7 @@ import EducationPreview from "../education/EducationPreview";
 import MySkillPreview from "../my-skill/MySkillPreview";
 import OtherSkillPreview from "../other-skills/OtherSkill";
 import Hobbies from "../hobbies/Hobbies";
+import "./cv-display.scss";
 
 // Update the display function to handle responsive sizing
 const displayCVOnModal = async (
@@ -169,7 +170,7 @@ const CVDisplayUI: React.FC = () => {
   // Memoize the main UI components to prevent unnecessary re-renders
   const leftColumn = useMemo(
     () => (
-      <Col span={12} className="background--opacity p-2 rounded-3xl pb-6">
+      <Col span={12} className="left-column">
         <UserInformationPreview />
         <IndustryKnowledgePreview />
         <LanguagesPreview />
@@ -181,8 +182,8 @@ const CVDisplayUI: React.FC = () => {
 
   const rightColumn = useMemo(
     () => (
-      <Col span={12}>
-        <Card className="rounded-3xl">
+      <Col span={12} className="right-column">
+        <Card className="content-card">
           <ExperienceUIPreview />
           <EducationPreview />
           <MySkillPreview />
@@ -204,56 +205,51 @@ const CVDisplayUI: React.FC = () => {
 
   return (
     <>
-      <Card className="h-full">
-        <Row className="flex justify-center">
-          <Col span={18} className="a">
-            <h2 className="font-bold text-lg ">
-              Your CV will look like below...
-            </h2>
-          </Col>
-          <Col span={4} className="flex justify-end">
-            <Button className="btn rounded mr-2">Save as Draft</Button>
-            <Dropdown overlay={downloadMenu} placement="bottomRight">
-              <Button
-                className="btn rounded download__cv"
-                disabled={isExporting}
-              >
-                {isExporting ? "Generating..." : "Download your CV"}{" "}
-                <DownOutlined />
+      <div className="cv-display-container">
+        <Card className="cv-card">
+          <Row className="flex justify-center">
+            <Col span={18}>
+              <h2 className="cv-title">Your CV will look like below...</h2>
+            </Col>
+            <Col span={4} className="flex justify-end download-actions">
+              <Button className="action-button save-draft">
+                Save as Draft
               </Button>
-            </Dropdown>
-          </Col>
-        </Row>
-        <Row className="h-full mt-6 flex justify-center">
-          <Col span={22}>
-            <Card
-              className="rounded background--gradient h-full cv__display"
-              id="cv-layout"
-            >
-              <Row gutter={{ lg: 16 }} className="flex justify-center ">
-                {leftColumn}
-                {rightColumn}
-              </Row>
-            </Card>
-          </Col>
-        </Row>
-      </Card>
+              <Dropdown overlay={downloadMenu} placement="bottomRight">
+                <Button
+                  className="action-button download-cv"
+                  disabled={isExporting}
+                >
+                  {isExporting ? "Generating..." : "Download your CV"}{" "}
+                  <DownOutlined />
+                </Button>
+              </Dropdown>
+            </Col>
+          </Row>
+          <Row className="h-full mt-6 flex justify-center">
+            <Col span={22}>
+              <Card className="cv-layout" id="cv-layout">
+                <Row gutter={{ lg: 16 }} className="flex justify-center">
+                  {leftColumn}
+                  {rightColumn}
+                </Row>
+              </Card>
+            </Col>
+          </Row>
+        </Card>
+      </div>
       <Modal
         title={`Preview your CV before download as ${exportFormat.toUpperCase()}`}
         visible={isModalVisible}
         onOk={exportCV}
         onCancel={() => setIsModalVisible(false)}
         okButtonProps={{ loading: isExporting }}
-        className="modal-preview__modal"
+        className="cv-preview-modal"
         width="80%"
         bodyStyle={modalStyles.content}
         centered
       >
-        <Row
-          className="cv__preview-export flex justify-center cv__display"
-          id="preview-cv"
-          style={{ overflow: "auto", maxHeight: "calc(80vh - 120px)" }}
-        ></Row>
+        <Row className="cv-preview-content" id="preview-cv"></Row>
       </Modal>
     </>
   );

@@ -1,12 +1,13 @@
 import React, { FC, Suspense } from "react";
 import { SectionProps } from "../types/section.types";
 import { componentNames } from "../constants/componentNames";
+import "../../../../styles/theme.scss";
 
 // Placeholder component for when content is loading
 const LoadingPlaceholder: FC = () => (
-  <div className="p-3 bg-gray-100 rounded animate-pulse">
-    <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+  <div className="p-3 bg-gray-100 rounded animate-pulse loading-placeholder">
+    <div className="h-6 bg-gray-200 rounded w-3/4 mb-2 placeholder-line"></div>
+    <div className="h-4 bg-gray-200 rounded w-1/2 placeholder-line"></div>
   </div>
 );
 

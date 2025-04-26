@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
-import "./index.css";
+import "./styles/index.scss";
 import { MainRoutes } from "./routes/route";
 
 // Create a root with concurrent mode

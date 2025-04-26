@@ -1,0 +1,118 @@
+@import "./theme.scss";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "~antd/dist/antd.css";
+
+// Global styles that reflect our theme colors
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $text-dark;
+  background-color: $bg-white;
+}
+
+// Buttons
+.btn {
+  text-align: center;
+  background-color: $white;
+  color: $primary-purple;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-color: $primary-purple;
+  
+  &:hover, &:focus {
+    color: $secondary-pink;
+    border-color: $secondary-pink;
+  }
+}
+
+// White display button
+.btn--white-display {
+  color: $white;
+  background-color: rgba($light-gray, 0.35);
+  border-color: transparent;
+  pointer-events: none;
+}
+
+// Grey display button
+.btn--grey-display {
+  background-color: $medium-gray;
+  color: $white;
+}
+
+// Code blocks
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+// Background classes
+.background--gradient {
+  background-image: $secondary-gradient;
+}
+
+.background--opacity {
+  background-color: rgba($light-gray, 0.3);
+}
+
+// Ant Design overrides
+.ant-collapse-header {
+  color: $primary-purple !important;
+}
+
+.ant-collapse-item {
+  border-color: $light-purple !important;
+}
+
+.ant-input {
+  &:hover, &:focus {
+    border-color: $primary-purple !important;
+    box-shadow: 0 0 0 2px rgba($primary-purple, 0.2) !important;
+  }
+}
+
+.ant-btn-primary {
+  background-color: $primary-purple !important;
+  border-color: $primary-purple !important;
+  
+  &:hover, &:focus {
+    background-color: darken($primary-purple, 10%) !important;
+    border-color: darken($primary-purple, 10%) !important;
+  }
+}
+
+// Cards styling
+.ant-card {
+  border-radius: 8px;
+  overflow: hidden;
+  
+  .ant-card-head {
+    background-color: rgba($primary-purple, 0.05);
+    border-bottom-color: $light-purple;
+    
+    .ant-card-head-title {
+      color: $primary-purple;
+    }
+  }
+}
+
+// Dropdowns
+.ant-dropdown-menu {
+  border-radius: 8px;
+  overflow: hidden;
+  
+  .ant-dropdown-menu-item {
+    color: $text-dark;
+    
+    &:hover {
+      background-color: rgba($primary-purple, 0.1);
+      color: $primary-purple;
+    }
+  }
+} 

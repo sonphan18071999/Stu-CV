@@ -1,0 +1,120 @@
+// Main color palette based on header gradient
+$primary-purple: rgb(116, 138, 232);
+$secondary-pink: rgb(224, 37, 206);
+$light-purple: rgb(185, 197, 245);
+$light-pink: rgb(240, 156, 232);
+
+// Neutral colors
+$white: #ffffff;
+$light-gray: rgba(196, 196, 196, 0.3);
+$medium-gray: rgb(84, 84, 84);
+$dark-gray: rgb(50, 50, 50);
+
+// Functional colors
+$success: #52c41a;
+$warning: #faad14;
+$error: #f5222d;
+
+// Gradients
+$primary-gradient: linear-gradient(90deg, $primary-purple, $secondary-pink);
+$secondary-gradient: linear-gradient(150deg, $primary-purple, $secondary-pink);
+$hover-gradient: linear-gradient(90deg, darken($primary-purple, 10%), darken($secondary-pink, 10%));
+
+// Text colors
+$text-light: $white;
+$text-dark: $dark-gray;
+$text-primary: $primary-purple;
+$text-secondary: $secondary-pink;
+
+// Border colors
+$border-light: $light-gray;
+$border-primary: $primary-purple;
+
+// Background colors
+$bg-gradient: $primary-gradient;
+$bg-light: $light-gray;
+$bg-white: $white;
+$bg-primary-transparent: rgba($primary-purple, 0.1);
+$bg-secondary-transparent: rgba($secondary-pink, 0.1);
+
+// Export as CSS variables for use in components
+:root {
+  --primary-purple: #{$primary-purple};
+  --secondary-pink: #{$secondary-pink};
+  --light-purple: #{$light-purple};
+  --light-pink: #{$light-pink};
+  --white: #{$white};
+  --light-gray: #{$light-gray};
+  --medium-gray: #{$medium-gray};
+  --dark-gray: #{$dark-gray};
+  --text-light: #{$text-light};
+  --text-dark: #{$text-dark};
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+}
+
+// Utility classes
+.bg-gradient {
+  background-image: $primary-gradient;
+}
+
+.bg-gradient-secondary {
+  background-image: $secondary-gradient;
+}
+
+.text-gradient {
+  background-image: $primary-gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.border-gradient {
+  border: 2px solid;
+  border-image: $primary-gradient;
+  border-image-slice: 1;
+}
+
+.btn-primary {
+  background-image: $primary-gradient;
+  color: $white;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-image: $hover-gradient;
+  }
+}
+
+.btn-secondary {
+  background-color: $white;
+  color: $primary-purple;
+  border: 1px solid $primary-purple;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: $secondary-pink;
+    border-color: $secondary-pink;
+  }
+}
+
+// Theme classes for components
+.theme-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: $white;
+  border-top: 3px solid $primary-purple;
+}
+
+.theme-input {
+  border-color: $light-purple;
+  
+  &:focus {
+    border-color: $primary-purple;
+    box-shadow: 0 0 0 2px rgba($primary-purple, 0.2);
+  }
+}
+
+.theme-sidebar {
+  background-color: $bg-primary-transparent;
+  border-right: 1px solid $light-purple;
+} 

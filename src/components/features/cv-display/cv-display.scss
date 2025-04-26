@@ -1,0 +1,88 @@
+@import '../../../styles/theme.scss';
+
+.cv-display-container {
+  .cv-title {
+    color: $primary-purple;
+    font-weight: bold;
+  }
+  
+  .cv-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: $white;
+    
+    .download-actions {
+      .action-button {
+        margin-right: 10px;
+        
+        &.save-draft {
+          @extend .btn-secondary;
+        }
+        
+        &.download-cv {
+          @extend .btn-primary;
+        }
+      }
+    }
+    
+    .cv-layout {
+      @extend .bg-gradient-secondary;
+      border-radius: 8px;
+      overflow: hidden;
+      
+      .left-column {
+        background-color: rgba($white, 0.2);
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 24px;
+      }
+      
+      .right-column {
+        .content-card {
+          border-radius: 16px;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+// Preview modal styling
+.cv-preview-modal {
+  .ant-modal-content {
+    border-radius: 12px;
+    overflow: hidden;
+    
+    .ant-modal-header {
+      background-color: $primary-purple;
+      
+      .ant-modal-title {
+        color: $white;
+        font-weight: 600;
+      }
+    }
+    
+    .ant-modal-body {
+      padding: 24px;
+    }
+    
+    .ant-modal-footer {
+      .ant-btn-primary {
+        background-color: $primary-purple;
+        border-color: $primary-purple;
+        
+        &:hover {
+          background-color: darken($primary-purple, 10%);
+          border-color: darken($primary-purple, 10%);
+        }
+      }
+    }
+    
+    .cv-preview-content {
+      display: flex;
+      justify-content: center;
+      max-height: calc(80vh - 120px);
+      overflow: auto;
+    }
+  }
+} 
