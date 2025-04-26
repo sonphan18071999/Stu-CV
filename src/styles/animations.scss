@@ -1,3 +1,5 @@
+@import "./theme.scss";
+
 // Input highlight animation
 @keyframes input-highlight {
   0% {
@@ -18,26 +20,27 @@
   animation: input-highlight 1.5s ease-in-out;
 }
 
-// Input value update flash
+// Text animations
 @keyframes text-highlight {
   0% {
     color: inherit;
+    text-shadow: none;
     transform: scale(1);
   }
   30% {
-    color: rgb(116, 138, 232); // primary-purple
-    font-weight: 500;
-    transform: scale(1.01);
+    color: white;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    transform: scale(1.05);
   }
   100% {
     color: inherit;
-    font-weight: inherit;
+    text-shadow: none;
     transform: scale(1);
   }
 }
 
 .text-highlight {
-  animation: text-highlight 1.5s ease-in-out;
+  animation: text-highlight 1.5s ease-in-out !important;
 }
 
 // Input border highlight
@@ -91,4 +94,121 @@
     opacity: 0;
     transform: scale(1.2);
   }
+}
+
+// Icon animations
+@keyframes icon-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  30% {
+    transform: scale(1.3);
+    opacity: 1;
+    color: $secondary-pink;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+.animated-icon {
+  animation: icon-pulse 1.5s ease-in-out;
+}
+
+// Button animations
+@keyframes button-highlight {
+  0% {
+    background-color: rgba(196, 196, 196, 0.35);
+  }
+  30% {
+    background-color: rgba(224, 37, 206, 0.25);
+  }
+  100% {
+    background-color: rgba(196, 196, 196, 0.35);
+  }
+}
+
+.highlight {
+  animation: button-highlight 1.5s ease-in-out;
+}
+
+// Demo button styling
+.demo-button {
+  background: linear-gradient(135deg, #7467ef, #9554cb);
+  border: none;
+  font-weight: 500;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #8678ff, #a665dc);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Section title animations
+@keyframes section-title-highlight {
+  0% {
+    transform: translateX(0);
+    text-shadow: none;
+  }
+  30% {
+    transform: translateX(5px);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  100% {
+    transform: translateX(0);
+    text-shadow: none;
+  }
+}
+
+.section-title-highlight {
+  animation: section-title-highlight 1.5s ease-in-out;
+}
+
+// List item animations
+@keyframes list-item-highlight {
+  0% {
+    transform: translateX(0);
+    background-color: transparent;
+  }
+  30% {
+    transform: translateX(8px);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  100% {
+    transform: translateX(0);
+    background-color: transparent;
+  }
+}
+
+.list-item-highlight {
+  animation: list-item-highlight 1.5s ease-in-out;
+}
+
+// Animated item (for grid items)
+@keyframes item-highlight {
+  0% {
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+  30% {
+    transform: translateY(-5px);
+    filter: brightness(1.2);
+  }
+  100% {
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+}
+
+.animated-item {
+  animation: item-highlight 1.5s ease-in-out;
 } 
