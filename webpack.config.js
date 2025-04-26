@@ -1,9 +1,9 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  entry: './src/index.tsx',
-  mode: 'development',
-  devtool: 'inline-source-map',
+  entry: "./src/index.tsx",
+  mode: "development",
+  devtool: "inline-source-map",
   module: {
     rules: [
       {
@@ -22,11 +22,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        loader: 'file-loader'
+        loader: "file-loader",
       },
       {
         test: /\.s[ac]ss$/i,
@@ -39,13 +39,32 @@ module.exports = {
           "sass-loader",
         ],
       },
+      {
+        test: /\.worker\.ts$/,
+        use: [
+          {
+            loader: "worker-loader",
+            options: {
+              inline: "no-fallback",
+              filename: "[name].[contenthash].worker.js",
+            },
+          },
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: [".tsx", ".ts", ".js"],
   },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    globalObject: "self",
   },
 };

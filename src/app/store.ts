@@ -1,17 +1,24 @@
-import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from '../redux/reducer/counterSlice';
-import userInformationReducer from '../redux/reducer/userInformationSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "../redux/reducer/counterSlice";
+import userInformationReducer from "../redux/reducer/userInformationSlice";
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    userInformation: userInformationReducer
-  }
-})
+    userInformation: userInformationReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false, // Disable serializable check for better performance
+      immutableCheck: {
+        // Customize immutable check to improve performance
+        warnAfter: 128,
+      },
+    }),
+  devTools: process.env.NODE_ENV !== "production", // Disable Redux DevTools in production
+});
 
-// highlight-start
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch
-// highlight-end
+export type AppDispatch = typeof store.dispatch;

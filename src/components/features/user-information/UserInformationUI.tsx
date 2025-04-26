@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Col, Collapse, Row } from "antd";
 import Input from "antd/lib/input/Input";
 import UserInformation from "../../../models/UserInformation";
@@ -7,6 +7,7 @@ import { setUserInformation } from "../../../redux/reducer/userInformationSlice"
 import ImageUploader from "../../commons/image-upload/ImageUploader";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
+import _ from "lodash";
 const { Panel } = Collapse;
 
 const UserInformationUI: React.FC = () => {
@@ -18,21 +19,32 @@ const UserInformationUI: React.FC = () => {
 
   const [user, setUser] = useState<UserInformation>(userInformation);
 
-  useEffect(() => {
-    // console.log('user changed',user);
-    dispatch(setUserInformation(user));
-  }, [user]);
+  // Use lodash's debounce to prevent too many Redux updates
+  const debouncedDispatch = useCallback(
+    _.debounce((userData: UserInformation) => {
+      dispatch(setUserInformation(userData));
+    }, 300),
+    [dispatch]
+  );
 
-  const updateUser = (e: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    debouncedDispatch(user);
+    // Cleanup on unmount
+    return () => {
+      debouncedDispatch.cancel();
+    };
+  }, [user, debouncedDispatch]);
+
+  const updateUser = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setUser((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
-  };
+  }, []);
 
-  const handleImageUpload = (dataUrl: string) => {
-    setUser({ ...user, avatar: dataUrl });
-  };
+  const handleImageUpload = useCallback((dataUrl: string) => {
+    setUser((prev) => ({ ...prev, avatar: dataUrl }));
+  }, []);
 
   return (
     <Collapse
@@ -128,4 +140,4 @@ const UserInformationUI: React.FC = () => {
   );
 };
 
-export default UserInformationUI;
+export default React.memo(UserInformationUI);
