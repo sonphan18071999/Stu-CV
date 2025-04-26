@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 import React from "react";
-import { languageMock } from "../../../../mocks/LanguageMock";
+import { languageMock } from "../../../mocks/LanguageMock";
 
 const LanguagesPreview: React.FC = () => {
   return (

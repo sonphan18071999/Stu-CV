@@ -7,8 +7,8 @@ import {
   PhoneFilled,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../app/store";
-import '../../../../styles/userInformationPreview.scss';
+import { RootState } from "../../../app/store";
+import "../../../styles/userInformationPreview.scss";
 
 const UserInformationPreview: React.FC = () => {
   const userInformation = useSelector(
@@ -16,7 +16,7 @@ const UserInformationPreview: React.FC = () => {
   );
 
   return (
-    <div className="user-information__preview p-4" >
+    <div className="user-information__preview p-4">
       <Row>
         <Col span={10}>
           <Avatar
@@ -28,9 +28,7 @@ const UserInformationPreview: React.FC = () => {
           <h2>
             <p className="text-3xl text-white font-bold">
               <span>{userInformation.firstName} </span>
-              <span>
-                {userInformation.lastName}
-              </span>
+              <span>{userInformation.lastName}</span>
             </p>
           </h2>
 
@@ -44,7 +42,7 @@ const UserInformationPreview: React.FC = () => {
           <Button className="w-full h-10 rounded-3xl btn--white-display ">
             <Row>
               <Col span={24} className="flex text-left">
-                <Col span={3} >
+                <Col span={3}>
                   <PhoneFilled className="btn__icon mr-2" />
                 </Col>
                 <Col className="overflow">
@@ -58,13 +56,12 @@ const UserInformationPreview: React.FC = () => {
       <Row className="mt-4 ">
         <Col className="w-full">
           <Button className="w-full h-10 rounded-3xl btn--white-display ">
-            <Row >
+            <Row>
               <Col span={24} className="flex">
                 <Col span={3}>
                   <MailFilled className="btn__icon mr-2" />
                 </Col>
                 <Col className="overflow">
-
                   <p>{userInformation.email}</p>
                 </Col>
               </Col>
@@ -80,19 +77,19 @@ const UserInformationPreview: React.FC = () => {
                 <ChromeFilled className="btn__icon mr-2" />
               </Col>
               <Col className="overflow">
-                <p>
-                  {userInformation.website}
-                </p>
+                <p>{userInformation.website}</p>
               </Col>
             </Col>
           </Row>
         </Button>
       </Row>
-      <Row className="mt-4" >
+      <Row className="mt-4">
         <Button className="w-full h-10 rounded-3xl btn--white-display text-left ">
           <Row>
             <Col span={24} className="w-full flex">
-              <Col span={3}><HomeFilled className="btn__icon mr-2" /></Col>
+              <Col span={3}>
+                <HomeFilled className="btn__icon mr-2" />
+              </Col>
               <Col className="overflow">
                 <p className="break-normal">{userInformation.location}</p>
               </Col>

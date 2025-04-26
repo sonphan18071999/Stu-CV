@@ -9,7 +9,7 @@ import {
   Row,
 } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import Experience from "../../../../models/Experience";
+import Experience from "../../../models/Experience";
 
 const { Panel } = Collapse;
 

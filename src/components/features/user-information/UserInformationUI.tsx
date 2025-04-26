@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Col, Collapse, Row } from "antd";
 import Input from "antd/lib/input/Input";
-import UserInformation from "../../../../models/UserInformation";
-import { useAppDispatch } from "../../../../app/hook";
-import { setUserInformation } from "../../../../redux/reducer/userInformationSlice";
-import ImageUploader from "../../../commons/image-upload/ImageUploader";
+import UserInformation from "../../../models/UserInformation";
+import { useAppDispatch } from "../../../app/hook";
+import { setUserInformation } from "../../../redux/reducer/userInformationSlice";
+import ImageUploader from "../../commons/image-upload/ImageUploader";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../app/store";
+import { RootState } from "../../../app/store";
 const { Panel } = Collapse;
-
 
 const UserInformationUI: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +20,7 @@ const UserInformationUI: React.FC = () => {
 
   useEffect(() => {
     // console.log('user changed',user);
-    dispatch(setUserInformation(user))
+    dispatch(setUserInformation(user));
   }, [user]);
 
   const updateUser = (e: React.ChangeEvent<HTMLInputElement>) => {

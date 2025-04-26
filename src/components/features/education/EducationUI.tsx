@@ -8,7 +8,7 @@ import {
   Input,
   Row,
 } from "antd";
-import Education from "../../../../models/Education";
+import Education from "../../../models/Education";
 const { Panel } = Collapse;
 
 const onChange: DatePickerProps["onChange"] = (date, dateString) => {

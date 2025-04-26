@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "antd";
-import { educationMock } from "../../../../mocks/EducationMock";
+import { educationMock } from "../../../mocks/EducationMock";
 
 const EducationPreview: React.FC = () => {
   return (
@@ -15,7 +15,7 @@ const EducationPreview: React.FC = () => {
         </Col>
         <Col span={18}></Col>
       </Row>
-      <hr/>
+      <hr />
       {educationMock.map((school, idx) => (
         <div key={idx}>
           <Row className="mt-2">

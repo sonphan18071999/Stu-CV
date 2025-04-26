@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 import React from "react";
-import { socialMock } from "../../../../mocks/SocialMock";
+import { socialMock } from "../../../mocks/SocialMock";
 
 const SocialPreview: React.FC = () => {
   return (

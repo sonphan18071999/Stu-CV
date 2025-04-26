@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "antd";
-import { hobbyIconMock } from "../../../../mocks/HobbyMock";
+import { hobbyIconMock } from "../../../mocks/HobbyMock";
 
 const showHobbies = hobbyIconMock.map((hobby) => (
   <Col span={6} key={hobby.name}>

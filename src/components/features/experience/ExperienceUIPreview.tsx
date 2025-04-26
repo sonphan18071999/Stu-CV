@@ -1,17 +1,18 @@
 import React from "react";
 import { Col, Row } from "antd";
-import { experienceMock } from "../../../../mocks/ExperienceMock";
+import { experienceMock } from "../../../mocks/ExperienceMock";
 
 const ExperienceUIPreview: React.FC = () => {
-  
   return (
     <>
-        <div >
-          <button className=" py-2" >
-              <h2 className="text-xl"><b>Experience</b></h2>
-          </button>
-        </div>
-    <hr/>
+      <div>
+        <button className=" py-2">
+          <h2 className="text-xl">
+            <b>Experience</b>
+          </h2>
+        </button>
+      </div>
+      <hr />
       {experienceMock.map((company, idx) => (
         <div key={idx}>
           <Row className="mt-2">

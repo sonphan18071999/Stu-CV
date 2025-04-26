@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "antd";
-import { mySkillIcons } from "../../../../mocks/MySkillMock";
+import { mySkillIcons } from "../../../mocks/MySkillMock";
 
 const showMySkills = mySkillIcons.map((skill) => (
   <Col span={6} key={skill.name}>
@@ -16,13 +16,15 @@ const MySkillPreview: React.FC = () => {
         <Col span={24}>
           <button className="py-2">
             <span className="text-xl uppercase">
-              <h3><b>My Skills</b></h3>
+              <h3>
+                <b>My Skills</b>
+              </h3>
             </span>
           </button>
         </Col>
         <Col span={18}></Col>
       </Row>
-      <hr/>
+      <hr />
       <Row className="mt-4">
         <Col span={24}>
           <div className="mr-4 rounded-md">
