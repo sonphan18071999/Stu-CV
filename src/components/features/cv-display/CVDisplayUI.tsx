@@ -18,7 +18,7 @@ import MySkillPreview from "../my-skill/MySkillPreview";
 import OtherSkillPreview from "../other-skills/OtherSkill";
 import Hobbies from "../hobbies/Hobbies";
 
-// Memoize this function to avoid recreation on each render
+// Update the display function to handle responsive sizing
 const displayCVOnModal = async (
   cvLayout: HTMLElement,
   cvExport: HTMLElement
@@ -27,12 +27,33 @@ const displayCVOnModal = async (
   const canvas = await html2canvas(cvLayout, {
     useCORS: true,
     allowTaint: true,
-    logging: false, // Disable logging for better performance
+    logging: false,
     scale: 2, // Higher quality
   });
 
+  // Scale the canvas to fit the modal
+  const scaledCanvas = document.createElement("canvas");
+  const ctx = scaledCanvas.getContext("2d");
+
+  // Set max width for the preview (80% of the modal width)
+  const maxWidth = Math.min(800, window.innerWidth * 0.8);
+
+  // Calculate scaling ratio to fit within maxWidth
+  const ratio = maxWidth / canvas.width;
+  scaledCanvas.width = canvas.width * ratio;
+  scaledCanvas.height = canvas.height * ratio;
+
+  if (ctx) {
+    // Draw the original canvas onto the scaled canvas
+    ctx.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
+
+    // Add a style to make it responsive
+    scaledCanvas.style.maxWidth = "100%";
+    scaledCanvas.style.height = "auto";
+  }
+
   if (document.body.contains(cvExport)) {
-    cvExport.appendChild(canvas);
+    cvExport.appendChild(scaledCanvas);
   } else {
     console.error("cvExport is not in the document.");
   }
@@ -172,6 +193,15 @@ const CVDisplayUI: React.FC = () => {
     []
   );
 
+  // Add some CSS styles for the modal
+  const modalStyles = {
+    content: {
+      maxHeight: "80vh",
+      overflow: "auto",
+      padding: "20px",
+    },
+  };
+
   return (
     <>
       <Card className="h-full">
@@ -215,10 +245,14 @@ const CVDisplayUI: React.FC = () => {
         onCancel={() => setIsModalVisible(false)}
         okButtonProps={{ loading: isExporting }}
         className="modal-preview__modal"
+        width="80%"
+        bodyStyle={modalStyles.content}
+        centered
       >
         <Row
           className="cv__preview-export flex justify-center cv__display"
           id="preview-cv"
+          style={{ overflow: "auto", maxHeight: "calc(80vh - 120px)" }}
         ></Row>
       </Modal>
     </>
