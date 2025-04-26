@@ -1,0 +1,94 @@
+// Input highlight animation
+@keyframes input-highlight {
+  0% {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  30% {
+    background-color: rgba(116, 138, 232, 0.2); // Light version of primary-purple
+    box-shadow: 0 0 5px rgba(116, 138, 232, 0.3);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+.input-highlight {
+  animation: input-highlight 1.5s ease-in-out;
+}
+
+// Input value update flash
+@keyframes text-highlight {
+  0% {
+    color: inherit;
+    transform: scale(1);
+  }
+  30% {
+    color: rgb(116, 138, 232); // primary-purple
+    font-weight: 500;
+    transform: scale(1.01);
+  }
+  100% {
+    color: inherit;
+    font-weight: inherit;
+    transform: scale(1);
+  }
+}
+
+.text-highlight {
+  animation: text-highlight 1.5s ease-in-out;
+}
+
+// Input border highlight
+@keyframes border-highlight {
+  0% {
+    border-color: inherit;
+  }
+  30% {
+    border-color: rgb(116, 138, 232); // primary-purple
+    border-width: 1.5px;
+  }
+  100% {
+    border-color: inherit;
+    border-width: inherit;
+  }
+}
+
+.border-highlight {
+  animation: border-highlight 1.5s ease-in-out;
+}
+
+// For subtle highlight (can be used together with input-highlight)
+.subtle-highlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.subtle-highlight::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(116, 138, 232, 0.3) 0%, rgba(116, 138, 232, 0) 70%);
+  opacity: 0;
+  pointer-events: none;
+  animation: subtle-pulse 1.5s ease-in-out;
+}
+
+@keyframes subtle-pulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+} 

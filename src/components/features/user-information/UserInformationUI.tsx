@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Col, Collapse, Row } from "antd";
-import Input from "antd/lib/input/Input";
 import UserInformation from "../../../models/UserInformation";
 import { useAppDispatch } from "../../../app/hook";
 import { setUserInformation } from "../../../redux/reducer/userInformationSlice";
 import ImageUploader from "../../commons/image-upload/ImageUploader";
+import HighlightInput from "../../commons/inputs/HighlightInput";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../app/store";
 import _ from "lodash";
@@ -36,9 +36,10 @@ const UserInformationUI: React.FC = () => {
   }, [user, debouncedDispatch]);
 
   const updateUser = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setUser((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   }, []);
 
@@ -55,77 +56,77 @@ const UserInformationUI: React.FC = () => {
       <Panel className="font-bold" header="User Information" key={10}>
         <Row gutter={{ lg: 8 }}>
           <Col span={12}>
-            <Input
+            <HighlightInput
               bordered={true}
               className="rounded text-sm"
               placeholder="First Name"
               name="firstName"
-              onChange={(e) => updateUser(e)}
+              onChange={updateUser}
               value={user.firstName}
             />
           </Col>
           <Col span={12}>
-            <Input
+            <HighlightInput
               placeholder="Last Name"
               bordered={true}
               className="rounded text-sm"
               name="lastName"
-              onChange={(e) => updateUser(e)}
+              onChange={updateUser}
               value={user.lastName}
             />
           </Col>
         </Row>
         <Row className="mt-2" gutter={{ lg: 8 }}>
           <Col span={12}>
-            <Input
+            <HighlightInput
               placeholder="Job title"
               bordered={true}
               className="rounded text-sm"
               name="title"
-              onChange={(e) => updateUser(e)}
+              onChange={updateUser}
               value={user.title}
             />
           </Col>
           <Col span={12}>
-            <Input
+            <HighlightInput
               placeholder="Phone"
               bordered={true}
               className="rounded text-sm"
               name="phone"
-              onChange={(e) => updateUser(e)}
+              onChange={updateUser}
               value={user.phone}
             />
           </Col>
         </Row>
         <Row className="mt-2">
           <Col span={24}>
-            <Input
+            <HighlightInput
               placeholder="Email"
               className="rounded text-sm"
               name="email"
-              onChange={(e) => updateUser(e)}
+              onChange={updateUser}
               value={user.email}
             />
           </Col>
         </Row>
         <Row className="mt-2">
           <Col span={24}>
-            <Input
+            <HighlightInput
               placeholder="Website"
               className="rounded text-sm"
               name="website"
-              onChange={(e) => updateUser(e)}
+              onChange={updateUser}
               value={user.website}
             />
           </Col>
         </Row>
         <Row className="mt-2">
           <Col span={24}>
-            <Input
+            <HighlightInput
               placeholder="Location"
               className="rounded text-sm"
               name="location"
-              onChange={(e) => updateUser(e)}
+              onChange={updateUser}
               value={user.location}
             />
           </Col>
