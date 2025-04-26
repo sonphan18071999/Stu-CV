@@ -1,5 +1,10 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
-import { Button, Card, Col, Modal, Row } from "antd";
+import { Button, Card, Col, Modal, Row, Dropdown, Menu, message } from "antd";
+import {
+  DownOutlined,
+  FilePdfOutlined,
+  FileWordOutlined,
+} from "@ant-design/icons";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import UserInformationPreview from "../user-information/UserInformationPreview";
@@ -36,6 +41,7 @@ const displayCVOnModal = async (
 const CVDisplayUI: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [exportFormat, setExportFormat] = useState<"pdf" | "word">("pdf");
 
   useEffect(() => {
     if (isModalVisible) {
@@ -50,30 +56,94 @@ const CVDisplayUI: React.FC = () => {
       setIsExporting(true);
       const cvLayout = document.getElementById("cv-layout") as HTMLElement;
 
-      const canvas = await html2canvas(cvLayout, {
-        useCORS: true,
-        allowTaint: true,
-        logging: false,
-        scale: 2, // Higher quality
-      });
+      if (exportFormat === "pdf") {
+        // Export as PDF - existing functionality
+        const canvas = await html2canvas(cvLayout, {
+          useCORS: true,
+          allowTaint: true,
+          logging: false,
+          scale: 2, // Higher quality
+        });
 
-      const imageDataURL = canvas.toDataURL("image/png", 0.8); // Compress image
-      const pdf = new jsPDF({
-        orientation: "portrait",
-        unit: "mm",
-      });
+        const imageDataURL = canvas.toDataURL("image/png", 0.8); // Compress image
+        const pdf = new jsPDF({
+          orientation: "portrait",
+          unit: "mm",
+        });
 
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
-      pdf.addImage(imageDataURL, "PNG", 0, 0, pdfWidth, pdfHeight);
-      pdf.save("cv-export.pdf");
+        pdf.addImage(imageDataURL, "PNG", 0, 0, pdfWidth, pdfHeight);
+        pdf.save("cv-export.pdf");
+      } else {
+        // Export as Word document
+        try {
+          // Get the HTML content from the CV layout
+          const content = cvLayout.innerHTML;
+
+          // Create a blob with Word document content
+          // We need to wrap the HTML in Word-compatible XML
+          const wordContent = `
+            <html xmlns:o='urn:schemas-microsoft-com:office:office' 
+                  xmlns:w='urn:schemas-microsoft-com:office:word' 
+                  xmlns='http://www.w3.org/TR/REC-html40'>
+              <head>
+                <meta charset="utf-8">
+                <title>CV Export</title>
+                <style>
+                  /* Include essential styles here */
+                  body { font-family: Arial, sans-serif; }
+                </style>
+              </head>
+              <body>
+                ${content}
+              </body>
+            </html>
+          `;
+
+          // Create blob and download link
+          const blob = new Blob([wordContent], { type: "application/msword" });
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "cv-export.doc";
+
+          // Trigger download
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          message.success("Word document has been generated");
+        } catch (error) {
+          console.error("Error generating Word document:", error);
+          message.error("Failed to generate Word document");
+        }
+      }
     } catch (error) {
-      console.error("Error generating PDF:", error);
+      console.error(`Error generating ${exportFormat.toUpperCase()}:`, error);
+      message.error(`Failed to generate ${exportFormat.toUpperCase()}`);
     } finally {
       setIsExporting(false);
     }
+  }, [exportFormat]);
+
+  // Handle download options selection
+  const handleDownloadOption = useCallback(({ key }: { key: string }) => {
+    setExportFormat(key as "pdf" | "word");
+    setIsModalVisible(true);
   }, []);
+
+  // Create download menu
+  const downloadMenu = (
+    <Menu onClick={handleDownloadOption}>
+      <Menu.Item key="pdf" icon={<FilePdfOutlined />}>
+        PDF Document
+      </Menu.Item>
+      <Menu.Item key="word" icon={<FileWordOutlined />}>
+        Word Document
+      </Menu.Item>
+    </Menu>
+  );
 
   // Memoize the main UI components to prevent unnecessary re-renders
   const leftColumn = useMemo(
@@ -113,13 +183,15 @@ const CVDisplayUI: React.FC = () => {
           </Col>
           <Col span={4} className="flex justify-end">
             <Button className="btn rounded mr-2">Save as Draft</Button>
-            <Button
-              className="btn rounded download__cv"
-              onClick={() => setIsModalVisible(true)}
-              disabled={isExporting}
-            >
-              {isExporting ? "Generating..." : "Download your CV"}
-            </Button>
+            <Dropdown overlay={downloadMenu} placement="bottomRight">
+              <Button
+                className="btn rounded download__cv"
+                disabled={isExporting}
+              >
+                {isExporting ? "Generating..." : "Download your CV"}{" "}
+                <DownOutlined />
+              </Button>
+            </Dropdown>
           </Col>
         </Row>
         <Row className="h-full mt-6 flex justify-center">
@@ -137,7 +209,7 @@ const CVDisplayUI: React.FC = () => {
         </Row>
       </Card>
       <Modal
-        title="Preview your CV before download"
+        title={`Preview your CV before download as ${exportFormat.toUpperCase()}`}
         visible={isModalVisible}
         onOk={exportCV}
         onCancel={() => setIsModalVisible(false)}
