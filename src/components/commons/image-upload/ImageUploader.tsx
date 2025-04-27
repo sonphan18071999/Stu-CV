@@ -1,40 +1,78 @@
 // ImageUploader.tsx
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectUserInformation, setUserInformation } from '../../../redux/reducer/userInformationSlice';
-import { useAppDispatch } from '../../../redux';
-import { RootState } from '../../../app/store';
-import { ImageUploaderProps } from '../../../models/imageUploaderProps';
-import API_CONFIG from '../../../env';
-const imagePath = require('../../../core/assets/images/avatar.png');
-const { Uploader } = require("uploader");
+import React, { useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
+import { selectUserInformation } from "../../../redux/reducer/userInformationSlice";
+import { ImageUploaderProps } from "../../../models/imageUploaderProps";
+const defaultAvatar = require("../../../core/assets/images/avatar.png");
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload }) => {
-
-  const [imageUrl, setImageUrl] = useState<string>(imagePath);
   const userInfo = useSelector(selectUserInformation);
-  const dispatch = useAppDispatch();
-  const uploader = Uploader({ apiKey: API_CONFIG.development.apiKey });
+  const [imageUrl, setImageUrl] = useState<string>(
+    userInfo.avatar || defaultAvatar
+  );
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    dispatch(setUserInformation({ ...userInfo, avatar: imageUrl }));
-  }, [imageUrl])
+  // Trigger file input click when image is clicked
+  const handleImageClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
-  const handleUploadImage = async () => {
-    uploader.open({ multi: false }).then((files: any[]) => {
-      if (files.length) {
-        const imageUrl = files[0].fileUrl;
-        setImageUrl(imageUrl);
-        onImageUpload(imageUrl);
-      }
-    }).catch((err: any) => {
-      console.error(err);
-    });
-  }
+  // Handle file selection
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    const validImageTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/webp",
+    ];
+    if (!validImageTypes.includes(file.type)) {
+      alert("Please select a valid image file (JPEG, PNG, GIF, WEBP)");
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+    if (file.size > maxSize) {
+      alert("File size must be less than 5MB");
+      return;
+    }
+
+    // Convert the file to a data URL
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const dataUrl = e.target?.result as string;
+      setImageUrl(dataUrl);
+      onImageUpload(dataUrl);
+    };
+    reader.readAsDataURL(file);
+  };
 
   return (
-    <div>
-      <img onClick={handleUploadImage} src={imageUrl} alt='Your image upload show as below' className='my-2' width={310} height={50} />
+    <div className="image-uploader">
+      <img
+        onClick={handleImageClick}
+        src={imageUrl}
+        alt="Your profile picture"
+        className="my-2 cursor-pointer hover:opacity-80 transition-opacity"
+        width={310}
+        height={50}
+      />
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        accept="image/jpeg, image/png, image/gif, image/webp"
+        style={{ display: "none" }}
+      />
+      <p className="text-xs text-gray-500 mt-1">
+        Click on the image to upload a new photo
+      </p>
     </div>
   );
 };
