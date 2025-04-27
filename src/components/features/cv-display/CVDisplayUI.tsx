@@ -15,6 +15,7 @@ import ExperienceUIPreview from "../left-header/experience/ExperienceUIPreview";
 import EducationPreview from "../left-header/education/EducationPreview";
 import MySkillPreview from "../left-header/my-skill/MySkillPreview";
 import OtherSkillPreview from "../left-header/other-skills/OtherSkill";
+import DemoGuide from "../demo/DemoGuide";
 import "./cv-display.scss";
 
 // Update the display function to handle responsive sizing
@@ -209,7 +210,8 @@ const CVDisplayUI: React.FC = () => {
             <Col span={18}>
               <h2 className="cv-title">Your CV will look like below...</h2>
             </Col>
-            <Col span={4} className="flex justify-end download-actions">
+            <Col span={6} className="flex justify-end download-actions">
+              <DemoGuide />
               <Button className="action-button save-draft">
                 Save as Draft
               </Button>

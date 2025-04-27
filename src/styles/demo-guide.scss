@@ -1,0 +1,118 @@
+.demo-button {
+  background-color: #1890ff;
+  margin-left: 10px;
+}
+
+.demo-modal {
+  .ant-modal-content {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .ant-modal-header {
+    background-color: #f8f9fa;
+    padding: 16px 24px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .ant-modal-body {
+    padding: 20px;
+  }
+
+  .steps-content {
+    margin-top: 30px;
+    padding: 10px;
+    min-height: 300px;
+  }
+
+  .demo-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    
+    .ant-card-body {
+      padding: 20px;
+    }
+  }
+
+  .demo-img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #f0f0f0;
+  }
+
+  // Animation classes
+  .demo-edit {
+    &.animate {
+      animation: edit-pulse 1.5s ease-in-out;
+    }
+  }
+
+  .demo-preview {
+    &.animate {
+      animation: preview-fade 1.5s ease-in-out;
+    }
+  }
+  
+  .demo-download {
+    &.animate {
+      animation: download-bounce 1.5s ease-in-out;
+    }
+  }
+}
+
+@keyframes edit-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(24, 144, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(24, 144, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(24, 144, 255, 0);
+  }
+}
+
+@keyframes preview-fade {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes download-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+// For animated sections
+.highlight-section {
+  transition: background-color 0.3s ease;
+  
+  &.active {
+    background-color: rgba(24, 144, 255, 0.05);
+  }
+}
+
+// Utility classes
+.text-center {
+  text-align: center !important;
+}
+
+.mt-4 {
+  margin-top: 1rem !important;
+} 
