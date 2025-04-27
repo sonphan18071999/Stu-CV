@@ -64,7 +64,6 @@ const ExperienceUIPreview: React.FC = () => {
               <p className="mt-2 text-base">{experience.description}</p>
             </Col>
           </Row>
-          {idx < experiences.length - 1 && <hr className="mt-3" />}
         </div>
       ))}
     </>
