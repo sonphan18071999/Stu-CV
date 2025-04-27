@@ -2,9 +2,15 @@ import React from "react";
 import { Col, Row } from "antd";
 import { useSelector } from "react-redux";
 import { selectExperiences } from "../../../../redux/reducer/experienceSlice";
+import moment from "moment";
 
 const ExperienceUIPreview: React.FC = () => {
   const experiences = useSelector(selectExperiences);
+
+  // Helper function to format date as Month Year
+  const formatDate = (dateString: string) => {
+    return dateString ? moment(dateString).format("MMM YYYY") : "Present";
+  };
 
   if (experiences.length === 0) {
     return (
@@ -46,7 +52,10 @@ const ExperienceUIPreview: React.FC = () => {
           <Row>
             <Col span={24}>
               <span className="text-sm text-gray-500">
-                {experience.startDate} - {experience.endDate || "Present"}
+                {formatDate(experience.startDate)} -{" "}
+                {experience.endDate
+                  ? formatDate(experience.endDate)
+                  : "Present"}
               </span>
             </Col>
           </Row>
