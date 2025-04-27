@@ -1,28 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { Col, Row } from "antd";
-import { mySkillIcons } from "../../../../mocks/MySkillMock";
+import { useSelector } from "react-redux";
+import { selectMySkills } from "../../../../redux/reducer/mySkillSlice";
 import { useAnimations } from "../../../../utils/animations";
 import "../../../../styles/animations.scss";
-
-interface Skill {
-  name: string;
-  url: string;
-}
-
-interface SkillsData {
-  items: Skill[];
-  title: string;
-}
+import "../../../../styles/icon-alignment.scss";
 
 const MySkillPreview: React.FC = () => {
-  // For demo purposes, we'll use the mock data
-  const [skillsData, setSkillsData] = useState<SkillsData>({
-    items: mySkillIcons,
+  const skills = useSelector(selectMySkills);
+
+  // Use our animation utilities with the skills data
+  const { getAnimationClass } = useAnimations({
+    items: skills,
     title: "My Skills",
   });
 
-  // Use our animation utilities
-  const { getAnimationClass } = useAnimations(skillsData);
+  // Check if there are any skills
+  const hasSkills = skills.length > 0;
 
   return (
     <>
@@ -36,45 +30,47 @@ const MySkillPreview: React.FC = () => {
               )}`}
             >
               <h3>
-                <b>{skillsData.title}</b>
+                <b>My Skills</b>
               </h3>
             </span>
           </button>
         </Col>
-        <Col span={18}></Col>
       </Row>
       <hr />
-      <Row className="mt-4">
-        <Col span={24}>
-          <div className="mr-4 rounded-md">
-            <Row gutter={{ lg: 4 }} className="pb-4">
-              {skillsData.items.map((skill) => (
-                <Col
-                  span={6}
-                  key={skill.name}
-                  className={getAnimationClass("items", "animated-item")}
-                >
-                  <p
-                    className={`text-gray font-bold ${getAnimationClass(
-                      "items",
-                      "text-highlight"
-                    )}`}
-                  >
-                    {skill.name}
-                  </p>
+      {!hasSkills ? (
+        <p className="text-base italic mt-2">
+          Add your skills to showcase your technical expertise...
+        </p>
+      ) : (
+        <div className="mt-4">
+          {skills.map((skill) => (
+            <div key={skill.name} className="skill-item">
+              <div className="skill-item__icon-container">
+                {skill.url && (
                   <img
                     src={skill.url}
-                    className={`flex justify-center w-1/2 mt-2 ${getAnimationClass(
+                    alt={skill.name}
+                    className={`skill-item__icon ${getAnimationClass(
                       "items",
                       "animated-icon"
                     )}`}
                   />
-                </Col>
-              ))}
-            </Row>
-          </div>
-        </Col>
-      </Row>
+                )}
+              </div>
+              <div className="skill-item__content">
+                <p
+                  className={`skill-item__title ${getAnimationClass(
+                    "items",
+                    "text-highlight"
+                  )}`}
+                >
+                  {skill.name}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 };

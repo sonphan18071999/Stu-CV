@@ -5,11 +5,13 @@ import {
   MailFilled,
   HomeFilled,
   PhoneFilled,
+  UserOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../app/store";
 import UserInformation from "../../../../models/UserInformation";
 import "../../../../styles/userInformationPreview.scss";
+import "../../../../styles/icon-alignment.scss";
 
 const UserInformationPreview: React.FC = () => {
   const userInformation = useSelector(
@@ -71,134 +73,154 @@ const UserInformationPreview: React.FC = () => {
     return animatedFields[fieldName] ? "highlight" : "";
   };
 
+  // Helper function to check if field is empty and should show placeholder
+  const isFieldEmpty = (fieldName: keyof UserInformation) => {
+    return !userInformation[fieldName] || userInformation[fieldName] === "";
+  };
+
+  // Placeholder text for empty fields
+  const placeholders = {
+    firstName: "Your First Name",
+    lastName: "Your Last Name",
+    title: "Your Professional Title",
+    phone: "Your Phone Number",
+    email: "Your Email Address",
+    website: "Your Website URL",
+    location: "Your Location",
+  };
+
   return (
     <div className="user-information__preview p-4">
       <Row>
         <Col span={10}>
-          <Avatar
-            size={{ xs: 24, sm: 32, md: 64, lg: 64, xl: 100, xxl: 120 }}
-            src={userInformation.avatar}
-            className={animatedFields["avatar"] ? "animated-icon" : ""}
-          />
+          {userInformation.avatar ? (
+            <Avatar
+              size={{ xs: 24, sm: 32, md: 64, lg: 64, xl: 100, xxl: 120 }}
+              src={userInformation.avatar}
+              className={animatedFields["avatar"] ? "animated-icon" : ""}
+            />
+          ) : (
+            <Avatar
+              size={{ xs: 24, sm: 32, md: 64, lg: 64, xl: 100, xxl: 120 }}
+              icon={<UserOutlined />}
+              className="bg-primary-light"
+            />
+          )}
         </Col>
         <Col span={14}>
           <h2>
             <p className="text-3xl text-white font-bold">
               <span className={getAnimationClass("firstName")}>
-                {userInformation.firstName}{" "}
+                {isFieldEmpty("firstName") ? (
+                  <span className="italic opacity-70">
+                    {placeholders.firstName}
+                  </span>
+                ) : (
+                  userInformation.firstName
+                )}{" "}
               </span>
               <span className={getAnimationClass("lastName")}>
-                {userInformation.lastName}
+                {isFieldEmpty("lastName") ? (
+                  <span className="italic opacity-70">
+                    {placeholders.lastName}
+                  </span>
+                ) : (
+                  userInformation.lastName
+                )}
               </span>
             </p>
           </h2>
 
           <h3 className="text-sm italic mt-3 text-gray-light">
             <p className={getAnimationClass("title")}>
-              {userInformation.title}
+              {isFieldEmpty("title") ? (
+                <span className="italic opacity-70">{placeholders.title}</span>
+              ) : (
+                userInformation.title
+              )}
             </p>
           </h3>
         </Col>
       </Row>
       <Row className="mt-4">
         <Col span={24}>
-          <Button
-            className={`w-full h-10 rounded-3xl btn--white-display ${getButtonAnimationClass(
-              "phone"
-            )}`}
+          <div
+            className={`icon-button ${getButtonAnimationClass("phone")} ${
+              isFieldEmpty("phone") ? "placeholder" : ""
+            }`}
           >
-            <Row>
-              <Col span={24} className="flex text-left">
-                <Col span={3}>
-                  <PhoneFilled
-                    className={`btn__icon mr-2 ${getIconAnimationClass(
-                      "phone"
-                    )}`}
-                  />
-                </Col>
-                <Col className="overflow">
-                  <p className={getAnimationClass("phone")}>
-                    {userInformation.phone}
-                  </p>
-                </Col>
-              </Col>
-            </Row>
-          </Button>
-        </Col>
-      </Row>
-      <Row className="mt-4 ">
-        <Col className="w-full">
-          <Button
-            className={`w-full h-10 rounded-3xl btn--white-display ${getButtonAnimationClass(
-              "email"
-            )}`}
-          >
-            <Row>
-              <Col span={24} className="flex">
-                <Col span={3}>
-                  <MailFilled
-                    className={`btn__icon mr-2 ${getIconAnimationClass(
-                      "email"
-                    )}`}
-                  />
-                </Col>
-                <Col className="overflow">
-                  <p className={getAnimationClass("email")}>
-                    {userInformation.email}
-                  </p>
-                </Col>
-              </Col>
-            </Row>
-          </Button>
+            <div className="icon-button__icon">
+              <PhoneFilled className={getIconAnimationClass("phone")} />
+            </div>
+            <div className="icon-button__text">
+              <p className={getAnimationClass("phone")}>
+                {isFieldEmpty("phone")
+                  ? placeholders.phone
+                  : userInformation.phone}
+              </p>
+            </div>
+          </div>
         </Col>
       </Row>
       <Row className="mt-4">
-        <Button
-          className={`w-full h-10 rounded-3xl btn--white-display ${getButtonAnimationClass(
-            "website"
-          )}`}
-        >
-          <Row>
-            <Col span={24} className="text-left flex">
-              <Col span={3}>
-                <ChromeFilled
-                  className={`btn__icon mr-2 ${getIconAnimationClass(
-                    "website"
-                  )}`}
-                />
-              </Col>
-              <Col className="overflow">
-                <p className={getAnimationClass("website")}>
-                  {userInformation.website}
-                </p>
-              </Col>
-            </Col>
-          </Row>
-        </Button>
+        <Col span={24}>
+          <div
+            className={`icon-button ${getButtonAnimationClass("email")} ${
+              isFieldEmpty("email") ? "placeholder" : ""
+            }`}
+          >
+            <div className="icon-button__icon">
+              <MailFilled className={getIconAnimationClass("email")} />
+            </div>
+            <div className="icon-button__text">
+              <p className={getAnimationClass("email")}>
+                {isFieldEmpty("email")
+                  ? placeholders.email
+                  : userInformation.email}
+              </p>
+            </div>
+          </div>
+        </Col>
       </Row>
       <Row className="mt-4">
-        <Button
-          className={`w-full h-10 rounded-3xl btn--white-display text-left ${getButtonAnimationClass(
-            "location"
-          )}`}
-        >
-          <Row>
-            <Col span={24} className="w-full flex">
-              <Col span={3}>
-                <HomeFilled
-                  className={`btn__icon mr-2 ${getIconAnimationClass(
-                    "location"
-                  )}`}
-                />
-              </Col>
-              <Col className="overflow">
-                <p className={`break-normal ${getAnimationClass("location")}`}>
-                  {userInformation.location}
-                </p>
-              </Col>
-            </Col>
-          </Row>
-        </Button>
+        <Col span={24}>
+          <div
+            className={`icon-button ${getButtonAnimationClass("website")} ${
+              isFieldEmpty("website") ? "placeholder" : ""
+            }`}
+          >
+            <div className="icon-button__icon">
+              <ChromeFilled className={getIconAnimationClass("website")} />
+            </div>
+            <div className="icon-button__text">
+              <p className={getAnimationClass("website")}>
+                {isFieldEmpty("website")
+                  ? placeholders.website
+                  : userInformation.website}
+              </p>
+            </div>
+          </div>
+        </Col>
+      </Row>
+      <Row className="mt-4">
+        <Col span={24}>
+          <div
+            className={`icon-button ${getButtonAnimationClass("location")} ${
+              isFieldEmpty("location") ? "placeholder" : ""
+            }`}
+          >
+            <div className="icon-button__icon">
+              <HomeFilled className={getIconAnimationClass("location")} />
+            </div>
+            <div className="icon-button__text">
+              <p className={`break-normal ${getAnimationClass("location")}`}>
+                {isFieldEmpty("location")
+                  ? placeholders.location
+                  : userInformation.location}
+              </p>
+            </div>
+          </div>
+        </Col>
       </Row>
     </div>
   );

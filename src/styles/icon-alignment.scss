@@ -1,0 +1,115 @@
+// Icon alignment styles for consistent layout across the application
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  
+  &__icon-container {
+    width: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  &__icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+  }
+  
+  &__content {
+    flex: 1;
+    padding-left: 12px;
+  }
+  
+  &__title {
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  
+  &__subtitle {
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  // Animation classes
+  &.animated {
+    .skill-item__icon {
+      animation: pulse 1.5s ease;
+    }
+  }
+
+  // Placeholder styles
+  &.placeholder {
+    opacity: 0.7;
+    
+    .skill-item__title {
+      color: rgba(255, 255, 255, 0.7);
+      font-style: italic;
+    }
+  }
+}
+
+// For buttons with icons on the left
+.icon-button {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  
+  &__icon {
+    margin-right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  &__text {
+    flex: 1;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  // Placeholder state
+  &.placeholder {
+    opacity: 0.7;
+    
+    .icon-button__text {
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+  
+  // Highlight/hover state
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  &.highlight {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+// Animation keyframes
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+} 

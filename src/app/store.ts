@@ -6,6 +6,7 @@ import languagesReducer from "../redux/reducer/languagesSlice";
 import socialReducer from "../redux/reducer/socialSlice";
 import experienceReducer from "../redux/reducer/experienceSlice";
 import educationReducer from "../redux/reducer/educationSlice";
+import mySkillReducer from "../redux/reducer/mySkillSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     social: socialReducer,
     experience: experienceReducer,
     education: educationReducer,
+    mySkill: mySkillReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
