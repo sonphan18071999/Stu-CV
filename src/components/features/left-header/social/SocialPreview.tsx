@@ -1,23 +1,27 @@
 import { Col, Row } from "antd";
-import React, { useState } from "react";
-import { socialMock } from "../../../../mocks/SocialMock";
+import React from "react";
+import { useSelector } from "react-redux";
+import { selectSocialLinks } from "../../../../redux/reducer/socialSlice";
 import { useAnimations } from "../../../../utils/animations";
 import "../../../../styles/animations.scss";
 
-interface SocialData {
-  items: string[];
-  title: string;
-}
-
 const SocialPreview: React.FC = () => {
-  // For demo purposes, we'll use the mock data
-  const [socialData, setSocialData] = useState<SocialData>({
-    items: socialMock,
+  const socialLinks = useSelector(selectSocialLinks);
+
+  // Create animatable data object
+  const socialData = {
     title: "Socials",
-  });
+    items: [
+      socialLinks.facebook && `Facebook: ${socialLinks.facebook}`,
+      socialLinks.linkedin && `LinkedIn: ${socialLinks.linkedin}`,
+      socialLinks.email && `Email: ${socialLinks.email}`,
+    ].filter(Boolean),
+  };
 
   // Use our animation utilities
   const { getAnimationClass } = useAnimations(socialData);
+
+  const hasLinks = socialData.items.length > 0;
 
   return (
     <>
@@ -32,16 +36,26 @@ const SocialPreview: React.FC = () => {
             >
               {socialData.title}
             </h2>
-            <ul className="list-none text-white ml-8 pb-4">
-              {socialData.items.map((link, index) => (
-                <li
-                  key={index}
-                  className={getAnimationClass("items", "list-item-highlight")}
-                >
-                  {link}
-                </li>
-              ))}
-            </ul>
+
+            {!hasLinks ? (
+              <p className="text-white ml-6 italic pb-4">
+                Add your social links to connect with others...
+              </p>
+            ) : (
+              <ul className="list-none text-white ml-8 pb-4">
+                {socialData.items.map((link, index) => (
+                  <li
+                    key={index}
+                    className={getAnimationClass(
+                      "items",
+                      "list-item-highlight"
+                    )}
+                  >
+                    {link}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </Col>
       </Row>

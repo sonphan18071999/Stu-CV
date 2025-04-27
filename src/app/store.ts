@@ -2,12 +2,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "../redux/reducer/counterSlice";
 import userInformationReducer from "../redux/reducer/userInformationSlice";
 import industryKnowledgeReducer from "../redux/reducer/industryKnowledgeSlice";
+import languagesReducer from "../redux/reducer/languagesSlice";
+import socialReducer from "../redux/reducer/socialSlice";
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     userInformation: userInformationReducer,
     industryKnowledge: industryKnowledgeReducer,
+    languages: languagesReducer,
+    social: socialReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

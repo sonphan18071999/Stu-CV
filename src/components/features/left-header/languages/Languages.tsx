@@ -1,21 +1,38 @@
 import { Button, Col, Collapse, Input, Row, Tag } from "antd";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addLanguage,
+  removeLanguage,
+  selectLanguages,
+} from "../../../../redux/reducer/languagesSlice";
+
 const { Panel } = Collapse;
 
 const Languages: React.FC = () => {
-  const [languages, setLanguages] = useState<string[]>([]);
+  const dispatch = useDispatch();
+  const languages = useSelector(selectLanguages);
   const [newLanguage, setNewLanguage] = useState<string>("");
 
   const addLanguages = () => {
-    if (languages) {
-      setLanguages((prev) => [...prev, newLanguage]);
+    if (newLanguage) {
+      dispatch(addLanguage(newLanguage));
       setNewLanguage("");
     }
   };
 
-  const showLanguagesAsTags = languages.map((job) => (
-    <Tag className="pt-2 pb-2 pl-4 pr-4 rounded mt-2" closable={true} key={job}>
-      {job}
+  const handleRemove = (language: string) => {
+    dispatch(removeLanguage(language));
+  };
+
+  const showLanguagesAsTags = languages.map((language) => (
+    <Tag
+      className="pt-2 pb-2 pl-4 pr-4 rounded mt-2"
+      closable={true}
+      key={language}
+      onClose={() => handleRemove(language)}
+    >
+      {language}
     </Tag>
   ));
 
@@ -27,9 +44,15 @@ const Languages: React.FC = () => {
             <Input
               className="text-sm rounded"
               placeholder="Ex: English, Chinese, Japanese.."
-              name="industryKnowledge"
+              name="language"
               value={newLanguage}
               onChange={(e) => setNewLanguage(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Tab") {
+                  e.preventDefault();
+                  addLanguages();
+                }
+              }}
             />
           </Col>
           <Col span={4} className="justify-end ml-2">

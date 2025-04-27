@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import { Col, Collapse, Row } from "antd";
 import { MailFilled, FacebookFilled, LinkedinFilled } from "@ant-design/icons";
 import Input from "antd/lib/input/Input";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectSocialLinks,
+  updateSocialLink,
+} from "../../../../redux/reducer/socialSlice";
+
 const { Panel } = Collapse;
 
 const Social: React.FC = () => {
-  const [socials, setSocials] = useState<string[]>([]);
+  const dispatch = useDispatch();
+  const socialLinks = useSelector(selectSocialLinks);
+
+  const handleSocialChange = (
+    field: "facebook" | "linkedin" | "email",
+    value: string
+  ) => {
+    dispatch(updateSocialLink({ field, value }));
+  };
 
   return (
     <Collapse expandIconPosition={`right`} className="w-full rounded">
@@ -15,7 +29,8 @@ const Social: React.FC = () => {
             <Input
               addonBefore={<FacebookFilled />}
               placeholder="Facebook"
-              onChange={(e) => setSocials([...socials, e.target.value])}
+              value={socialLinks.facebook}
+              onChange={(e) => handleSocialChange("facebook", e.target.value)}
             />
           </Col>
         </Row>
@@ -25,7 +40,8 @@ const Social: React.FC = () => {
               className="mt-2"
               placeholder="LinkedIn"
               addonBefore={<LinkedinFilled />}
-              onChange={(e) => setSocials([...socials, e.target.value])}
+              value={socialLinks.linkedin}
+              onChange={(e) => handleSocialChange("linkedin", e.target.value)}
             />
           </Col>
         </Row>
@@ -35,7 +51,8 @@ const Social: React.FC = () => {
               className="mt-2"
               placeholder="Mail"
               addonBefore={<MailFilled />}
-              onChange={(e) => setSocials([...socials, e.target.value])}
+              value={socialLinks.email}
+              onChange={(e) => handleSocialChange("email", e.target.value)}
             />
           </Col>
         </Row>
