@@ -68,7 +68,7 @@ const FieldSideBar: FC = () => {
           {visibleSections.length === 0 && searchQuery ? (
             <Empty
               description={`No sections match "${searchQuery}"`}
-              className="my-8"
+              // className="my-8"
             />
           ) : (
             sections.map((section) => (

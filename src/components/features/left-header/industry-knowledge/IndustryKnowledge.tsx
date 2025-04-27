@@ -1,22 +1,38 @@
 import React, { useState } from "react";
 import { Button, Col, Collapse, Row, Tag } from "antd";
 import Input from "antd/lib/input/Input";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addKnowledge,
+  removeKnowledge,
+  selectIndustryKnowledge,
+} from "../../../../redux/reducer/industryKnowledgeSlice";
 
 const { Panel } = Collapse;
 
 const IndustryKnowledge: React.FC = () => {
-  const [knowledges, setKnowledges] = useState<string[]>([]);
+  const dispatch = useDispatch();
+  const knowledges = useSelector(selectIndustryKnowledge);
   const [jobTitle, setJobTitle] = useState<string>("");
 
   const addJobTitle = () => {
     if (jobTitle) {
-      setKnowledges((prev) => [...prev, jobTitle]);
+      dispatch(addKnowledge(jobTitle));
       setJobTitle("");
     }
   };
 
+  const handleRemove = (job: string) => {
+    dispatch(removeKnowledge(job));
+  };
+
   const showJobsAsTags = knowledges.map((job) => (
-    <Tag className="pt-2 pb-2 pl-4 pr-4 rounded mt-2" closable={true} key={job}>
+    <Tag
+      className="pt-2 pb-2 pl-4 pr-4 rounded mt-2"
+      closable={true}
+      key={job}
+      onClose={() => handleRemove(job)}
+    >
       {job}
     </Tag>
   ));
@@ -36,6 +52,12 @@ const IndustryKnowledge: React.FC = () => {
               name="industryKnowledge"
               value={jobTitle}
               onChange={(e) => setJobTitle(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Tab") {
+                  e.preventDefault();
+                  addJobTitle();
+                }
+              }}
             />
           </Col>
           <Col span={4} className="justify-end ml-2">
