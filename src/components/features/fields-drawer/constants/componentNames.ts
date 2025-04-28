@@ -1,6 +1,7 @@
 // Component names for filtering
 export const componentNames = {
   UserInformation: "User Information",
+  Summary: "Professional Summary",
   IndustryKnowledge: "Industry Knowledge",
   Languages: "Languages",
   Social: "Social",

@@ -1,0 +1,40 @@
+@import './theme.scss';
+
+.summary__preview {
+  .summary-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    h3 {
+      color: $primary-purple;
+      border-bottom: 2px solid $primary-light;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+    
+    .summary-text {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      transition: all 0.3s ease;
+      
+      &.text-highlight {
+        background-color: rgba($primary-light, 0.2);
+        animation: highlight-fade 1.5s ease-out;
+      }
+    }
+  }
+}
+
+@keyframes highlight-fade {
+  0% {
+    background-color: rgba($primary-light, 0.5);
+  }
+  100% {
+    background-color: transparent;
+  }
+} 

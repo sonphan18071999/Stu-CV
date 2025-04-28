@@ -14,4 +14,5 @@ export const LazyComponents = {
   Experience: lazy(() => import("../../left-header/experience/ExperienceUI")),
   Education: lazy(() => import("../../left-header/education/EducationUI")),
   MySkill: lazy(() => import("../../left-header/my-skill/MySkill")),
+  Summary: lazy(() => import("../../left-header/summary/SummaryUI")),
 };

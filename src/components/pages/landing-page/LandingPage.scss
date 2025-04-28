@@ -161,15 +161,15 @@
             background-position: top center;
             
             &.template-1 {
-              background-image: url('/images/template-professional.jpg');
+              background-image: url('~/public/assets/images/template-professional.png');
             }
             
             &.template-2 {
-              background-image: url('/images/template-creative.jpg');
+              background-image: url('~/public/assets/images/creative-cv.webp');
             }
             
             &.template-3 {
-              background-image: url('/images/template-executive.jpg');
+              background-image: url('~/public/assets/images/excusive-cv.png');
             }
           }
           

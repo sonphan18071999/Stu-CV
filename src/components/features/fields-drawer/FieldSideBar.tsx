@@ -30,6 +30,10 @@ const FieldSideBar: FC = () => {
         component: <LazyComponents.UserInformation />,
       },
       {
+        name: "Summary",
+        component: <LazyComponents.Summary />,
+      },
+      {
         name: "IndustryKnowledge",
         component: <LazyComponents.IndustryKnowledge />,
       },
