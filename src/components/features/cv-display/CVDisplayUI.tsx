@@ -11,10 +11,12 @@ import {
   DownOutlined,
   FilePdfOutlined,
   FileWordOutlined,
+  SaveOutlined,
+  HistoryOutlined,
 } from "@ant-design/icons";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../app/store";
 import UserInformationPreview from "../left-header/user-information/UserInformationPreview";
 import IndustryKnowledgePreview from "../left-header/industry-knowledge/IndustryKnowledgePreview";
@@ -27,6 +29,14 @@ import OtherSkillPreview from "../left-header/other-skills/OtherSkill";
 import DemoGuide from "../demo/DemoGuide";
 import CVTemplate from "../../features/cv-templates/cv-template";
 import { TemplateType } from "../../../redux/reducer/templateSlice";
+import { setTemplate } from "../../../redux/reducer/templateSlice";
+import { setUserInformation } from "../../../redux/reducer/userInformationSlice";
+import { setExperiences } from "../../../redux/reducer/experienceSlice";
+import { setEducations } from "../../../redux/reducer/educationSlice";
+import { setSkills } from "../../../redux/reducer/mySkillSlice";
+import { setLanguages } from "../../../redux/reducer/languagesSlice";
+import { setSocialLinks } from "../../../redux/reducer/socialSlice";
+import { setKnowledges } from "../../../redux/reducer/industryKnowledgeSlice";
 import "./cv-display.scss";
 
 // Document dimensions constants
@@ -149,11 +159,19 @@ const CVDisplayUI: React.FC = () => {
   const pageRefs = useRef<Array<React.RefObject<HTMLDivElement>>>([]);
   const [contentHeight, setContentHeight] = useState<number>(0);
   const resizeObserverRef = useRef<ResizeObserver | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [savedDrafts, setSavedDrafts] = useState<Array<any>>([]);
+  const [isLoadingDraft, setIsLoadingDraft] = useState(false);
+  const [isDraftsVisible, setIsDraftsVisible] = useState(false);
 
   // Get the selected template from Redux
   const selectedTemplate = useSelector<RootState, TemplateType>(
     (state) => state.template.selectedTemplate
   );
+
+  // Get the full state from Redux for saving as draft
+  const reduxState = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
 
   // Memoize the document style to prevent recalculation on each render
   const documentStyle = useMemo(
@@ -323,6 +341,16 @@ const CVDisplayUI: React.FC = () => {
       };
     }
   }, [isModalVisible]);
+
+  // Load saved drafts from localStorage on component mount
+  useEffect(() => {
+    try {
+      const drafts = JSON.parse(localStorage.getItem("cv-drafts") || "[]");
+      setSavedDrafts(drafts);
+    } catch (error) {
+      console.error("Error loading drafts:", error);
+    }
+  }, []);
 
   const exportCV = useCallback(async () => {
     try {
@@ -538,6 +566,191 @@ const CVDisplayUI: React.FC = () => {
     []
   );
 
+  // Function to save CV as draft
+  const saveDraft = useCallback(async () => {
+    try {
+      setIsSaving(true);
+
+      // Get current timestamp for the draft name
+      const timestamp = new Date().toISOString();
+      const draftName = `draft-${timestamp}`;
+
+      // Prepare draft data to save
+      const draftData = {
+        userInfo: reduxState.userInformation,
+        industryKnowledge: reduxState.industryKnowledge,
+        languages: reduxState.languages,
+        social: reduxState.social,
+        experience: reduxState.experience,
+        education: reduxState.education,
+        skills: reduxState.mySkill,
+        template: reduxState.template.selectedTemplate,
+        timestamp,
+        name: draftName,
+      };
+
+      // Save to localStorage
+      const existingDrafts = JSON.parse(
+        localStorage.getItem("cv-drafts") || "[]"
+      );
+
+      // Add new draft to the list of drafts
+      const updatedDrafts = [draftData, ...existingDrafts].slice(0, 10); // Keep max 10 recent drafts
+
+      // Store back to localStorage
+      localStorage.setItem("cv-drafts", JSON.stringify(updatedDrafts));
+
+      // Update state
+      setSavedDrafts(updatedDrafts);
+
+      message.success("CV saved as draft successfully");
+    } catch (error) {
+      console.error("Error saving draft:", error);
+      message.error("Failed to save CV as draft");
+    } finally {
+      setIsSaving(false);
+    }
+  }, [reduxState]);
+
+  // Function to load a selected draft
+  const loadDraft = useCallback(
+    (draftData: any) => {
+      try {
+        setIsLoadingDraft(true);
+
+        // Dispatch actions to update the Redux store with draft data
+        if (draftData.userInfo) {
+          dispatch(setUserInformation(draftData.userInfo));
+        }
+
+        if (draftData.industryKnowledge) {
+          dispatch(setKnowledges(draftData.industryKnowledge));
+        }
+
+        if (draftData.languages) {
+          dispatch(setLanguages(draftData.languages));
+        }
+
+        if (draftData.social) {
+          dispatch(setSocialLinks(draftData.social));
+        }
+
+        if (draftData.experience) {
+          dispatch(setExperiences(draftData.experience));
+        }
+
+        if (draftData.education) {
+          dispatch(setEducations(draftData.education));
+        }
+
+        if (draftData.skills) {
+          dispatch(setSkills(draftData.skills));
+        }
+
+        if (draftData.template) {
+          dispatch(setTemplate(draftData.template));
+        }
+
+        message.success("Draft loaded successfully");
+        setIsDraftsVisible(false);
+      } catch (error) {
+        console.error("Error loading draft:", error);
+        message.error("Failed to load draft");
+      } finally {
+        setIsLoadingDraft(false);
+      }
+    },
+    [dispatch]
+  );
+
+  // Delete a draft from storage
+  const deleteDraft = useCallback(
+    (timestamp: string) => {
+      try {
+        const updatedDrafts = savedDrafts.filter(
+          (draft) => draft.timestamp !== timestamp
+        );
+
+        localStorage.setItem("cv-drafts", JSON.stringify(updatedDrafts));
+        setSavedDrafts(updatedDrafts);
+
+        message.success("Draft deleted successfully");
+      } catch (error) {
+        console.error("Error deleting draft:", error);
+        message.error("Failed to delete draft");
+      }
+    },
+    [savedDrafts]
+  );
+
+  // Handle draft selection from dropdown
+  const handleDraftSelection = useCallback(
+    ({ key }: { key: string }) => {
+      if (key === "save") {
+        saveDraft();
+      } else {
+        const selectedDraft = savedDrafts.find(
+          (draft) => draft.timestamp === key
+        );
+        if (selectedDraft) {
+          loadDraft(selectedDraft);
+        }
+      }
+    },
+    [savedDrafts, saveDraft, loadDraft]
+  );
+
+  // Format date for display
+  const formatDate = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleString();
+    } catch (error) {
+      return dateString;
+    }
+  };
+
+  // Create drafts menu
+  const draftsMenu = useMemo(
+    () => (
+      <Menu onClick={handleDraftSelection}>
+        <Menu.Item key="save" icon={<SaveOutlined />}>
+          Save current as draft
+        </Menu.Item>
+        <Menu.Divider />
+        {savedDrafts.length > 0 ? (
+          <>
+            <Menu.ItemGroup title="Saved Drafts">
+              {savedDrafts.map((draft) => (
+                <Menu.Item key={draft.timestamp}>
+                  <span>{formatDate(draft.timestamp)}</span>
+                  <span
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteDraft(draft.timestamp);
+                    }}
+                    style={{
+                      marginLeft: "10px",
+                      float: "right",
+                      color: "#ff4d4f",
+                    }}
+                  >
+                    Delete
+                  </span>
+                </Menu.Item>
+              ))}
+            </Menu.ItemGroup>
+          </>
+        ) : (
+          <Menu.Item key="no-drafts" disabled>
+            No saved drafts
+          </Menu.Item>
+        )}
+      </Menu>
+    ),
+    [savedDrafts, handleDraftSelection, deleteDraft]
+  );
+
   // Render multiple pages if content overflows
   const renderPages = () => {
     if (!contentOverflows) {
@@ -647,9 +860,20 @@ const CVDisplayUI: React.FC = () => {
             </Col>
             <Col span={6} className="flex justify-end download-actions">
               <DemoGuide />
-              <Button className="action-button save-draft">
-                Save as Draft
-              </Button>
+              <Dropdown
+                overlay={draftsMenu}
+                placement="bottomRight"
+                visible={isDraftsVisible}
+                onVisibleChange={setIsDraftsVisible}
+              >
+                <Button
+                  className="action-button save-draft"
+                  loading={isSaving || isLoadingDraft}
+                  icon={<HistoryOutlined />}
+                >
+                  Save as Draft
+                </Button>
+              </Dropdown>
               <Dropdown overlay={downloadMenu} placement="bottomRight">
                 <Button
                   className="action-button download-cv"
