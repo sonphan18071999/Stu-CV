@@ -39,7 +39,6 @@ const TemplateSelectorDrawer: React.FC = () => {
                   }`}
                 >
                   <Radio value="modern">Modern</Radio>
-                  <div className="template-preview modern-preview"></div>
                 </Card>
               </Col>
               <Col span={12}>
@@ -50,7 +49,6 @@ const TemplateSelectorDrawer: React.FC = () => {
                   }`}
                 >
                   <Radio value="classic">Classic</Radio>
-                  <div className="template-preview classic-preview"></div>
                 </Card>
               </Col>
               <Col span={12}>
@@ -61,7 +59,6 @@ const TemplateSelectorDrawer: React.FC = () => {
                   }`}
                 >
                   <Radio value="professional">Professional</Radio>
-                  <div className="template-preview professional-preview"></div>
                 </Card>
               </Col>
               <Col span={12}>
@@ -72,7 +69,6 @@ const TemplateSelectorDrawer: React.FC = () => {
                   }`}
                 >
                   <Radio value="creative">Creative</Radio>
-                  <div className="template-preview creative-preview"></div>
                 </Card>
               </Col>
             </Row>

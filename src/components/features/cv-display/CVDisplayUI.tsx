@@ -633,7 +633,7 @@ const CVDisplayUI: React.FC = () => {
       <div className="cv-display-container">
         <Card className="cv-card mx-2">
           <Row className="flex justify-center">
-            <Col span={18}>
+            <Col span={16}>
               <h2 className="cv-title">Your CV will look like below...</h2>
               {contentOverflows && (
                 <p
