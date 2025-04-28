@@ -5,6 +5,7 @@ import CVDisplayUI from "../../features/cv-display/CVDisplayUI";
 import FieldSideBar from "../../features/fields-drawer/FieldSideBar";
 import { Provider } from "react-redux";
 import { store } from "../../../app/store";
+import CVTemplate from "../../features/cv-templates/cv-template";
 
 const CreateCV: React.FC = () => {
   return (
