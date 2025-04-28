@@ -8,6 +8,7 @@ export const componentNames = {
   Experience: "Experience",
   Education: "Education",
   MySkill: "My Skills",
+  Templates: "CV Templates",
 };
 
 export type ComponentNameKey = keyof typeof componentNames;

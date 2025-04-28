@@ -8,6 +8,7 @@ import { FilteredSection } from "./components/FilteredSection";
 import { LazyComponents } from "./components/LazyComponents";
 import { SectionConfig } from "./types/section.types";
 import { filterSectionsByQuery } from "./utils/searchUtils";
+import TemplateSelectorDrawer from "../cv-templates/TemplateSelectorDrawer";
 
 /**
  * FieldSideBar Component
@@ -64,6 +65,11 @@ const FieldSideBar: FC = () => {
           </Row>
 
           <div className="mt-4"></div>
+
+          {/* Template Selector Drawer */}
+          <TemplateSelectorDrawer />
+
+          <div className="mt-2"></div>
 
           {visibleSections.length === 0 && searchQuery ? (
             <Empty

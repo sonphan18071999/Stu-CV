@@ -25,9 +25,6 @@ const AppHeader: React.FC = () => (
           <a href="/create">Create CV</a>
         </li>
       </ul>
-      <div>
-        <button className="btn h-10 pl-6 pr-6 rounded">Login</button>
-      </div>
     </header>
   </>
 );

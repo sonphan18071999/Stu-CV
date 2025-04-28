@@ -7,4 +7,10 @@ export default interface UserInformation {
   phone: string;
   website?: string;
   location?: string;
+
+  // Additional fields needed for templates
+  fullName?: string;
+  position?: string;
+  address?: string;
+  summary?: string;
 }

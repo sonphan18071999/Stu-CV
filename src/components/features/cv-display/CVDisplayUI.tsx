@@ -14,6 +14,8 @@ import {
 } from "@ant-design/icons";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../app/store";
 import UserInformationPreview from "../left-header/user-information/UserInformationPreview";
 import IndustryKnowledgePreview from "../left-header/industry-knowledge/IndustryKnowledgePreview";
 import LanguagesPreview from "../left-header/languages/LanguagesPreview";
@@ -23,6 +25,8 @@ import EducationPreview from "../left-header/education/EducationPreview";
 import MySkillPreview from "../left-header/my-skill/MySkillPreview";
 import OtherSkillPreview from "../left-header/other-skills/OtherSkill";
 import DemoGuide from "../demo/DemoGuide";
+import CVTemplate from "../../features/cv-templates/cv-template";
+import { TemplateType } from "../../../redux/reducer/templateSlice";
 import "./cv-display.scss";
 
 // Document dimensions constants
@@ -145,6 +149,11 @@ const CVDisplayUI: React.FC = () => {
   const pageRefs = useRef<Array<React.RefObject<HTMLDivElement>>>([]);
   const [contentHeight, setContentHeight] = useState<number>(0);
   const resizeObserverRef = useRef<ResizeObserver | null>(null);
+
+  // Get the selected template from Redux
+  const selectedTemplate = useSelector<RootState, TemplateType>(
+    (state) => state.template.selectedTemplate
+  );
 
   // Memoize the document style to prevent recalculation on each render
   const documentStyle = useMemo(
@@ -496,27 +505,11 @@ const CVDisplayUI: React.FC = () => {
     [handleDownloadOption]
   );
 
-  // Memoize CV Content so it's only rendered once
+  // Memoize CV Content so it's only rendered once, but recreate when template changes
   const cvContent = useMemo(() => {
-    return (
-      <Row gutter={{ lg: 16 }} className="flex justify-center">
-        <Col span={12} className="left-column">
-          <UserInformationPreview />
-          <IndustryKnowledgePreview />
-          <LanguagesPreview />
-          <SocialPreview />
-        </Col>
-        <Col span={12} className="right-column">
-          <Card className="content-card">
-            <ExperienceUIPreview />
-            <EducationPreview />
-            <MySkillPreview />
-            <OtherSkillPreview />
-          </Card>
-        </Col>
-      </Row>
-    );
-  }, []);
+    // Return the CV content with the selected template
+    return <CVTemplate />;
+  }, [selectedTemplate]); // Recreate when template changes
 
   // Memoize modal styles
   const modalStyles = useMemo(
