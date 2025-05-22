@@ -779,7 +779,6 @@ const CVDisplayUI: React.FC = () => {
             pageRefs.current[pageIndex] || React.createRef<HTMLDivElement>();
 
           // For debugging
-          console.log(`Rendering page ${pageIndex + 1} of ${pages}`);
 
           return (
             <Card

@@ -14,20 +14,40 @@ import {
 } from "./templateAdapters";
 
 const ClassicTemplate: React.FC = () => {
-  const state = useSelector((state: RootState) => state);
-  const userInfo = state.userInformation;
+  // Use specific selectors for better performance
+  const userInfo = useSelector((state: RootState) => state.userInformation);
+  const experienceData = useSelector((state: RootState) => state.experience);
+  const educationData = useSelector((state: RootState) => state.education);
+  const skillsData = useSelector((state: RootState) => state.mySkill);
+  const languagesData = useSelector((state: RootState) => state.languages);
 
   // Use adapter functions to format data for the template
-  const experience = adaptExperience(state.experience);
-  const education = adaptEducation(state.education);
-  const skills = adaptSkills(state.mySkill);
-  const languages = adaptLanguages(state.languages);
+  const experience = adaptExperience(experienceData);
+  const education = adaptEducation(educationData);
+  const skills = adaptSkills(skillsData);
+  const languages = adaptLanguages(languagesData);
 
+  console.log("phan", userInfo?.avatar);
   return (
     <div className="cv-template classic-template">
       <header className="classic-header">
-        <h1 className="name">{getUserFullName(userInfo)}</h1>
-        <p className="title">{getUserPosition(userInfo)}</p>
+        <div className="header-content">
+          {userInfo?.avatar && (
+            <div className="avatar-container">
+              <img
+                src={userInfo.avatar}
+                alt="Profile"
+                className="user-avatar"
+                width={100}
+                height={100}
+              />
+            </div>
+          )}
+          <div className="name-title">
+            <h1 className="name">{getUserFullName(userInfo)}</h1>
+            <p className="title">{getUserPosition(userInfo)}</p>
+          </div>
+        </div>
       </header>
 
       <div className="contact-info">
